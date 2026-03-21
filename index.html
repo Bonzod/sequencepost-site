@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sequence Post — Where Stories Come to Life</title>
+<meta name="description" content="Sequence Post is a dedicated post-production facility for the film industry, driven by a passion for collaborative storytelling.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --flame:#E04B25;
+  --flame-glow:#FF6B3D;
+  --ember:#C23A18;
+  --void:#08080A;
+  --soot:#0E0E12;
+  --charcoal:#151519;
+  --ash:#1C1C22;
+  --smoke:#2A2A34;
+  --fog:#9999A8;
+  --mist:#CCCCDA;
+  --light:#F0EDE8;
+  --display:'Bebas Neue',sans-serif;
+  --body:'DM Sans',sans-serif;
+  --nav-h:72px;
+}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--flame) var(--soot)}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--soot)}
+::-webkit-scrollbar-thumb{background:var(--flame);border-radius:3px}
+body{
+  font-family:var(--body);
+  background:var(--void);
+  color:var(--light);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+/* ── GRAIN OVERLAY ── */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px;
+}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(24px,4vw,64px);
+  transition:background .4s,backdrop-filter .4s,box-shadow .4s;
+}
+.nav.scrolled{
+  background:rgba(8,8,10,.92);
+  backdrop-filter:blur(20px) saturate(1.4);
+  box-shadow:0 1px 0 rgba(255,255,255,.04);
+}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-logo img{height:32px;width:auto}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{
+  font-size:13px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--fog);text-decoration:none;
+  position:relative;padding:4px 0;
+  transition:color .3s;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;
+  background:var(--flame);transition:width .3s;
+}
+.nav-links a:hover,
+.nav-links a.active{color:var(--light)}
+.nav-links a:hover::after,
+.nav-links a.active::after{width:100%}
+
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.nav-burger span{width:22px;height:1.5px;background:var(--light);transition:transform .3s,opacity .3s}
+.nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── MOBILE NAV ── */
+.mobile-menu{
+  position:fixed;inset:0;z-index:999;
+  background:rgba(8,8,10,.97);backdrop-filter:blur(30px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+  opacity:0;pointer-events:none;transition:opacity .4s;
+}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu a{
+  font-family:var(--display);font-size:clamp(36px,8vw,56px);
+  color:var(--light);text-decoration:none;letter-spacing:.06em;
+  opacity:0;transform:translateY(20px);transition:opacity .4s,transform .4s,color .3s;
+}
+.mobile-menu.open a{opacity:1;transform:none}
+.mobile-menu.open a:nth-child(2){transition-delay:.1s}
+.mobile-menu.open a:nth-child(3){transition-delay:.2s}
+.mobile-menu.open a:nth-child(4){transition-delay:.3s}
+.mobile-menu a:hover{color:var(--flame)}
+
+/* ── SECTION COMMON ── */
+section{position:relative}
+.section-pad{padding:clamp(80px,12vh,160px) clamp(24px,4vw,64px)}
+.section-label{
+  font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--flame);margin-bottom:16px;display:block;
+}
+.section-title{
+  font-family:var(--display);font-size:clamp(40px,6vw,80px);
+  line-height:.95;letter-spacing:.02em;color:var(--light);
+}
+.section-subtitle{
+  font-size:clamp(15px,1.4vw,18px);color:var(--fog);
+  max-width:560px;line-height:1.7;margin-top:20px;
+}
+
+/* ── HERO ── */
+#home{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+}
+.hero-slideshow{
+  position:absolute;inset:0;z-index:0;
+}
+.hero-slide{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;
+  opacity:0;
+  transition:opacity 1.5s ease-in-out;
+}
+.hero-slide.active{opacity:1}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(90deg, rgba(8,8,10,.85) 0%, rgba(8,8,10,.6) 40%, rgba(8,8,10,.3) 70%, rgba(8,8,10,.15) 100%),
+    linear-gradient(0deg, rgba(8,8,10,.9) 0%, transparent 30%),
+    linear-gradient(180deg, rgba(8,8,10,.7) 0%, transparent 20%);
+}
+.hero-scanlines{
+  position:absolute;inset:0;z-index:1;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);
+  pointer-events:none;
+}
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 clamp(24px,4vw,64px);
+  max-width:900px;
+}
+.hero-eyebrow{
+  font-size:12px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--flame);margin-bottom:28px;
+  display:flex;align-items:center;gap:16px;
+}
+.hero-eyebrow::before{
+  content:'';width:40px;height:1px;background:var(--flame);
+}
+.hero-title{
+  font-family:var(--display);
+  font-size:clamp(52px,9vw,120px);
+  line-height:.88;letter-spacing:.01em;
+  color:var(--light);
+}
+.hero-title .accent{color:var(--flame)}
+.hero-desc{
+  font-size:clamp(15px,1.3vw,18px);color:var(--fog);
+  max-width:580px;line-height:1.8;margin-top:32px;
+}
+.hero-desc strong{color:var(--light);font-weight:500}
+.hero-ctas{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 32px;font-family:var(--body);font-size:13px;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.btn-primary{
+  background:var(--flame);color:#fff;
+}
+.btn-primary:hover{background:var(--flame-glow);transform:translateY(-2px);box-shadow:0 8px 30px rgba(224,75,37,.3)}
+.btn-ghost{
+  background:transparent;color:var(--light);
+  border:1px solid rgba(255,255,255,.15);
+}
+.btn-ghost:hover{border-color:var(--flame);color:var(--flame)}
+.btn-white{
+  background:#fff;color:var(--flame);
+}
+.btn-white:hover{background:var(--light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.2)}
+
+/* Scrolling ticker */
+.ticker-wrap{
+  position:absolute;bottom:0;left:0;right:0;
+  border-top:1px solid rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  background:rgba(8,8,10,.6);
+  overflow:hidden;height:48px;display:flex;align-items:center;
+}
+.ticker{
+  display:flex;gap:48px;white-space:nowrap;
+  animation:ticker 30s linear infinite;
+}
+.ticker span{
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--fog);font-weight:500;
+  display:flex;align-items:center;gap:12px;
+}
+.ticker span::before{content:'';width:4px;height:4px;background:var(--flame);border-radius:50%}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── AWARDS / LAURELS ── */
+.awards-section{
+  background:var(--charcoal);
+  border-top:1px solid rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  padding:clamp(48px,6vh,80px) 0;
+  overflow:hidden;
+}
+.awards-header{
+  text-align:center;
+  margin-bottom:40px;
+  padding:0 clamp(24px,4vw,64px);
+}
+.awards-header .section-label{margin-bottom:12px}
+.awards-header .section-title{font-size:clamp(32px,4vw,56px)}
+.awards-scroll{
+  overflow:hidden;
+  mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);
+  -webkit-mask-image:linear-gradient(to right,transparent,black 8%,black 92%,transparent);
+}
+.awards-track{
+  display:flex;gap:20px;
+  animation:awards-scroll 50s linear infinite;
+}
+.awards-track:hover{animation-play-state:paused}
+.award-item{
+  flex-shrink:0;
+  display:flex;flex-direction:column;align-items:center;
+  padding:20px 28px;
+  border:1px solid rgba(224,75,37,.12);
+  min-width:190px;
+  text-align:center;
+  position:relative;
+  transition:border-color .3s;
+}
+.award-item:hover{border-color:rgba(224,75,37,.3)}
+.award-item::before,.award-item::after{
+  content:'';position:absolute;
+  width:14px;height:50%;
+  border:1px solid rgba(224,75,37,.15);
+  top:25%;
+}
+.award-item::before{left:5px;border-right:none;border-radius:6px 0 0 6px}
+.award-item::after{right:5px;border-left:none;border-radius:0 6px 6px 0}
+.award-star{color:var(--flame);font-size:14px;margin-bottom:8px;letter-spacing:4px}
+.award-category{
+  font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--flame);margin-bottom:4px;
+}
+.award-festival{
+  font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--light);margin-bottom:8px;line-height:1.4;
+}
+.award-film{
+  font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fog);
+}
+@keyframes awards-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── WORK SECTION ── */
+#work{background:var(--soot)}
+.work-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  flex-wrap:wrap;gap:24px;margin-bottom:56px;
+}
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{
+  padding:8px 20px;font-size:12px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  background:transparent;border:1px solid rgba(255,255,255,.08);
+  color:var(--fog);cursor:pointer;transition:all .3s;
+  font-family:var(--body);
+}
+.filter-btn:hover,.filter-btn.active{
+  border-color:var(--flame);color:var(--flame);
+  background:rgba(224,75,37,.06);
+}
+
+.projects-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,380px),1fr));
+  gap:24px;
+}
+.project-card{
+  position:relative;overflow:hidden;cursor:pointer;
+  background:var(--charcoal);
+  border:1px solid rgba(255,255,255,.04);
+  transition:transform .4s,border-color .4s,box-shadow .4s;
+}
+.project-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(224,75,37,.2);
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.project-thumb{
+  position:relative;aspect-ratio:16/9;overflow:hidden;
+  background:var(--ash);
+}
+.project-thumb img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s,filter .6s;
+}
+.project-card:hover .project-thumb img{
+  transform:scale(1.05);filter:brightness(1.1);
+}
+.project-play{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(8,8,10,.3);
+  opacity:0;transition:opacity .3s;
+}
+.project-card:hover .project-play{opacity:1}
+.project-play svg{
+  width:56px;height:56px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.4));
+}
+.project-info{padding:20px 24px}
+.project-genre{
+  font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--flame);margin-bottom:8px;
+}
+.project-name{
+  font-family:var(--display);font-size:22px;letter-spacing:.03em;
+  color:var(--light);margin-bottom:4px;
+}
+.project-director{font-size:13px;color:var(--fog)}
+.project-tagline{
+  font-size:12px;font-style:italic;color:var(--fog);
+  margin-top:8px;line-height:1.5;opacity:.75;
+}
+
+.more-projects-label{
+  font-family:var(--display);font-size:clamp(24px,3vw,36px);
+  letter-spacing:.02em;color:var(--light);
+  margin-top:80px;margin-bottom:32px;
+  padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.projects-grid-small{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));
+  gap:16px;
+}
+.project-card-sm{
+  position:relative;overflow:hidden;cursor:pointer;
+  background:var(--charcoal);border:1px solid rgba(255,255,255,.04);
+  transition:all .3s;
+}
+.project-card-sm:hover{border-color:rgba(224,75,37,.2);transform:translateY(-2px)}
+.project-card-sm .project-thumb{aspect-ratio:16/9}
+.project-card-sm .project-info{padding:14px 16px}
+.project-card-sm .project-name{font-size:17px}
+.project-card-sm .project-director{font-size:12px}
+.project-card-sm .project-tagline{font-size:11px;margin-top:6px}
+
+/* ── CTA BANNERS ── */
+.cta-banner{
+  background:var(--flame);
+  padding:clamp(48px,6vh,80px) clamp(24px,4vw,64px);
+  text-align:center;
+}
+.cta-banner h3{
+  font-family:var(--display);font-size:clamp(28px,4vw,52px);
+  color:#fff;letter-spacing:.02em;margin-bottom:8px;line-height:1;
+}
+.cta-banner p{
+  font-size:clamp(14px,1.3vw,17px);
+  color:rgba(255,255,255,.85);
+  max-width:640px;margin:0 auto 32px;line-height:1.7;
+}
+.cta-banner .btn-white{margin-top:8px}
+
+/* ── VIDEO MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.92);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal-close{
+  position:absolute;top:24px;right:24px;
+  width:48px;height:48px;background:none;border:1px solid rgba(255,255,255,.15);
+  color:var(--light);font-size:24px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .3s,color .3s;
+}
+.modal-close:hover{border-color:var(--flame);color:var(--flame)}
+.modal-video{
+  width:min(90vw,1100px);aspect-ratio:16/9;
+}
+.modal-video iframe{width:100%;height:100%;border:none}
+
+/* ── SERVICES ── */
+#services{background:var(--void)}
+.services-intro{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  margin-bottom:80px;align-items:center;
+}
+.services-visual{
+  position:relative;aspect-ratio:4/3;
+  background:
+    linear-gradient(135deg,var(--charcoal) 0%,var(--ash) 100%);
+  border:1px solid rgba(255,255,255,.04);
+  overflow:hidden;display:flex;align-items:center;justify-content:center;
+}
+.services-visual::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 30%,rgba(224,75,37,.08),transparent 60%);
+}
+.color-bars{
+  display:flex;gap:3px;width:70%;height:60%;position:relative;z-index:1;
+}
+.color-bar{
+  flex:1;border-radius:2px;
+  transition:flex .6s cubic-bezier(.4,0,.2,1),filter .4s;
+}
+.color-bar:nth-child(1){background:linear-gradient(to bottom,#1a1a2e,#16213e);flex:1.2}
+.color-bar:nth-child(2){background:linear-gradient(to bottom,#2d1b1b,#1a0f0f);flex:.8}
+.color-bar:nth-child(3){background:linear-gradient(to bottom,#E04B25,#8B2E15);flex:1.4}
+.color-bar:nth-child(4){background:linear-gradient(to bottom,#c4a35a,#7a6530);flex:1}
+.color-bar:nth-child(5){background:linear-gradient(to bottom,#1c2e1c,#0f1a0f);flex:.9}
+.color-bar:nth-child(6){background:linear-gradient(to bottom,#2e2e3a,#1a1a22);flex:1.1}
+.color-bar:nth-child(7){background:linear-gradient(to bottom,#3a1c1c,#1a0e0e);flex:.7}
+.services-visual:hover .color-bar:nth-child(3){flex:2.5;filter:brightness(1.2)}
+
+.core-services{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  margin-bottom:0;
+}
+.service-card{
+  background:var(--charcoal);
+  padding:clamp(32px,4vw,56px);
+  border:1px solid rgba(255,255,255,.03);
+  position:relative;overflow:hidden;
+  transition:background .4s;
+}
+.service-card:hover{background:var(--ash)}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;width:0;height:2px;
+  background:var(--flame);transition:width .5s;
+}
+.service-card:hover::before{width:100%}
+.service-icon{
+  width:48px;height:48px;margin-bottom:28px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(224,75,37,.2);
+  color:var(--flame);
+}
+.service-icon svg{width:22px;height:22px}
+.service-card h3{
+  font-family:var(--display);font-size:clamp(24px,2.5vw,32px);
+  letter-spacing:.03em;color:var(--light);margin-bottom:16px;
+}
+.service-card p{
+  font-size:14px;line-height:1.8;color:var(--fog);
+}
+
+/* ── QUOTE BANNER ── */
+.quote-banner{
+  background:var(--flame);
+  padding:clamp(40px,6vh,72px) clamp(24px,6vw,80px);
+  text-align:center;
+  margin:0;
+}
+.quote-banner p{
+  font-size:clamp(16px,1.8vw,22px);
+  font-style:italic;
+  line-height:1.7;
+  color:#fff;
+  max-width:800px;
+  margin:0 auto;
+}
+
+.partner-label{
+  font-family:var(--display);font-size:clamp(24px,3vw,36px);
+  letter-spacing:.02em;color:var(--light);
+  margin-bottom:32px;padding-bottom:16px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.partner-section{padding-top:clamp(48px,6vh,80px)}
+.partner-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+}
+.partner-card{
+  background:var(--charcoal);padding:clamp(24px,3vw,40px);
+  border:1px solid rgba(255,255,255,.03);
+  transition:background .3s;
+}
+.partner-card:hover{background:var(--ash)}
+.partner-card h4{
+  font-family:var(--display);font-size:20px;letter-spacing:.03em;
+  color:var(--flame);margin-bottom:12px;
+}
+.partner-card p{font-size:13px;line-height:1.7;color:var(--fog)}
+
+/* ── CONTACT ── */
+#contact{background:var(--soot)}
+.contact-header-text{
+  font-size:clamp(14px,1.2vw,16px);color:var(--fog);
+  max-width:640px;line-height:1.7;margin-top:16px;margin-bottom:48px;
+}
+.contact-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);
+  align-items:start;
+}
+.contact-info{padding-top:12px}
+.contact-detail{margin-bottom:32px}
+.contact-detail label{
+  display:block;font-size:11px;font-weight:600;
+  letter-spacing:.15em;text-transform:uppercase;
+  color:var(--flame);margin-bottom:8px;
+}
+.contact-detail a,.contact-detail p{
+  font-size:16px;color:var(--light);text-decoration:none;
+  line-height:1.6;
+}
+.contact-detail a:hover{color:var(--flame)}
+.contact-map{
+  margin-top:40px;aspect-ratio:16/10;
+  border:1px solid rgba(255,255,255,.04);
+  overflow:hidden;filter:grayscale(.8) brightness(.7) contrast(1.1);
+  transition:filter .4s;
+}
+.contact-map:hover{filter:grayscale(.3) brightness(.8) contrast(1.05)}
+.contact-map iframe{width:100%;height:100%;border:none}
+
+.contact-form{
+  background:var(--charcoal);border:1px solid rgba(255,255,255,.04);
+  padding:clamp(32px,4vw,48px);
+}
+.form-title{
+  font-family:var(--display);font-size:28px;letter-spacing:.03em;
+  color:var(--light);margin-bottom:8px;
+}
+.form-subtitle{font-size:13px;color:var(--fog);margin-bottom:32px}
+.form-group{margin-bottom:20px}
+.form-group label{
+  display:block;font-size:11px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--fog);margin-bottom:8px;
+}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;padding:14px 16px;
+  background:var(--ash);border:1px solid rgba(255,255,255,.06);
+  color:var(--light);font-family:var(--body);font-size:14px;
+  outline:none;transition:border-color .3s;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{
+  border-color:var(--flame);
+}
+.form-group textarea{resize:vertical;min-height:100px}
+.form-group select{cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%239999A8'%3E%3Cpath d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-checks{display:flex;flex-wrap:wrap;gap:12px;margin-top:4px}
+.form-check{
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-size:13px;color:var(--fog);
+}
+.form-check input[type="checkbox"]{
+  appearance:none;width:16px;height:16px;
+  border:1px solid rgba(255,255,255,.1);background:var(--ash);
+  cursor:pointer;position:relative;flex-shrink:0;
+}
+.form-check input[type="checkbox"]:checked{
+  background:var(--flame);border-color:var(--flame);
+}
+.form-check input[type="checkbox"]:checked::after{
+  content:'';position:absolute;left:4px;top:1px;
+  width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;
+  transform:rotate(45deg);
+}
+.form-submit{margin-top:28px}
+.form-optional{
+  font-size:10px;letter-spacing:.08em;color:var(--smoke);
+  font-weight:400;text-transform:none;
+}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--void);
+  border-top:1px solid rgba(255,255,255,.04);
+  padding:48px clamp(24px,4vw,64px);
+}
+.footer-inner{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:24px;
+}
+.footer-left{display:flex;align-items:center;gap:32px}
+.footer-copy{font-size:12px;color:var(--fog);letter-spacing:.02em}
+.footer-tagline{font-size:11px;color:var(--smoke);margin-top:4px}
+.footer-socials{display:flex;gap:16px}
+.footer-socials a{
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(255,255,255,.06);
+  color:var(--fog);text-decoration:none;font-size:14px;
+  transition:border-color .3s,color .3s;
+}
+.footer-socials a:hover{border-color:var(--flame);color:var(--flame)}
+.footer-socials svg{width:16px;height:16px}
+
+.footer-right a{
+  font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--fog);text-decoration:none;transition:color .3s;
+}
+.footer-right a:hover{color:var(--flame)}
+
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+
+/* Hero specific animations */
+.hero-content .hero-eyebrow{opacity:0;transform:translateX(-20px);transition:all .8s .3s}
+.hero-content .hero-title{opacity:0;transform:translateY(40px);transition:all .8s .5s}
+.hero-content .hero-desc{opacity:0;transform:translateY(30px);transition:all .8s .7s}
+.hero-content .hero-ctas{opacity:0;transform:translateY(20px);transition:all .8s .9s}
+.hero-loaded .hero-eyebrow,
+.hero-loaded .hero-title,
+.hero-loaded .hero-desc,
+.hero-loaded .hero-ctas{opacity:1;transform:none}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .services-intro{grid-template-columns:1fr;gap:40px}
+  .services-visual{max-height:300px}
+  .core-services{grid-template-columns:1fr}
+  .partner-grid{grid-template-columns:repeat(2,1fr)}
+  .contact-layout{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .projects-grid{grid-template-columns:1fr}
+  .projects-grid-small{grid-template-columns:1fr 1fr}
+  .partner-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .filter-bar{gap:6px}
+  .filter-btn{padding:6px 14px;font-size:11px}
+  .footer-inner{flex-direction:column;text-align:center}
+  .footer-left{flex-direction:column}
+}
+@media(max-width:480px){
+  .projects-grid-small{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav class="nav" id="mainNav">
+  <a href="#home" class="nav-logo">
+    <img src="logo.webp" alt="Sequence Post" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#work">Our Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#home">Home</a>
+  <a href="#work">Our Work</a>
+  <a href="#services">Services</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="home">
+  <div class="hero-slideshow" id="heroSlideshow"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-scanlines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Post-Production Studio</div>
+    <h1 class="hero-title">
+      WHERE<br>STORIES<br>COME TO <span class="accent">LIFE.</span>
+    </h1>
+    <p class="hero-desc">
+      A dedicated post-production facility for the film industry, driven by a passion for collaborative storytelling. We shape narratives through <strong>expert editorial</strong>, <strong>refine aesthetics with color grading</strong>, create <strong>impactful audio with sound design</strong>, and <strong>manage projects through to final delivery</strong> with meticulous attention to detail.
+    </p>
+    <div class="hero-ctas">
+      <a href="#work" class="btn btn-primary">View Our Work</a>
+      <a href="#services" class="btn btn-ghost">View Our Services</a>
+    </div>
+  </div>
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker">
+      <span>Editorial</span><span>Color Grading</span><span>Post Supervision</span>
+      <span>Visual Effects</span><span>Motion Graphics</span><span>Sound Design</span>
+      <span>Audio Mastering</span><span>Film</span><span>Television</span><span>Streaming</span>
+      <span>Editorial</span><span>Color Grading</span><span>Post Supervision</span>
+      <span>Visual Effects</span><span>Motion Graphics</span><span>Sound Design</span>
+      <span>Audio Mastering</span><span>Film</span><span>Television</span><span>Streaming</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AWARDS & SELECTIONS ═══ -->
+<section class="awards-section">
+  <div class="awards-header">
+    <span class="section-label">Recognition</span>
+    <h2 class="section-title">Awards &amp; Selections</h2>
+  </div>
+  <div class="awards-scroll">
+    <div class="awards-track" id="awardsTrack">
+      <!-- Old Righteous Blues -->
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">SAFTAs</div>
+        <div class="award-film">Old Righteous Blues</div>
+      </div>
+      <!-- Mr Johnson -->
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">Chandler Int'l Film Festival</div>
+        <div class="award-film">Mr Johnson</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Winner</div>
+        <div class="award-festival">Birmingham Film Festival</div>
+        <div class="award-film">Mr Johnson</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Actor</div>
+        <div class="award-festival">Durban Film Awards</div>
+        <div class="award-film">Mr Johnson</div>
+      </div>
+      <!-- The Fragile King -->
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Oscar-Qualifying</div>
+        <div class="award-festival">Chicago Children's Film Festival</div>
+        <div class="award-film">The Fragile King</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Feature Film</div>
+        <div class="award-festival">International Selection</div>
+        <div class="award-film">The Fragile King</div>
+      </div>
+      <!-- Father's Day -->
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Winner</div>
+        <div class="award-festival">Panther City Film Festival</div>
+        <div class="award-film">Father's Day</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">WACO Film Festival</div>
+        <div class="award-film">Father's Day</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Short Film</div>
+        <div class="award-festival">DC Black Film Festival</div>
+        <div class="award-film">Father's Day</div>
+      </div>
+      <!-- POU -->
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">African Film Festival</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Director</div>
+        <div class="award-festival">Lighthouse Film Fest</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Poster Design</div>
+        <div class="award-festival">Savannah Film Awards</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Semi-Finalist</div>
+        <div class="award-festival">Best Screenplay</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+      <!-- Duplicate set for seamless loop -->
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">SAFTAs</div>
+        <div class="award-film">Old Righteous Blues</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">Chandler Int'l Film Festival</div>
+        <div class="award-film">Mr Johnson</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Winner</div>
+        <div class="award-festival">Birmingham Film Festival</div>
+        <div class="award-film">Mr Johnson</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Actor</div>
+        <div class="award-festival">Durban Film Awards</div>
+        <div class="award-film">Mr Johnson</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Oscar-Qualifying</div>
+        <div class="award-festival">Chicago Children's Film Festival</div>
+        <div class="award-film">The Fragile King</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Feature Film</div>
+        <div class="award-festival">International Selection</div>
+        <div class="award-film">The Fragile King</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Winner</div>
+        <div class="award-festival">Panther City Film Festival</div>
+        <div class="award-film">Father's Day</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">WACO Film Festival</div>
+        <div class="award-film">Father's Day</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Short Film</div>
+        <div class="award-festival">DC Black Film Festival</div>
+        <div class="award-film">Father's Day</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Official Selection</div>
+        <div class="award-festival">African Film Festival</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Director</div>
+        <div class="award-festival">Lighthouse Film Fest</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Best Poster Design</div>
+        <div class="award-festival">Savannah Film Awards</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+      <div class="award-item">
+        <div class="award-star">&#9733;</div>
+        <div class="award-category">Semi-Finalist</div>
+        <div class="award-festival">Best Screenplay</div>
+        <div class="award-film">POU (Peacock)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OUR WORK ═══ -->
+<section id="work" class="section-pad">
+  <div class="work-header">
+    <div>
+      <span class="section-label reveal">Portfolio</span>
+      <h2 class="section-title reveal reveal-delay-1">Our Work</h2>
+      <p class="section-subtitle reveal reveal-delay-2">
+        Experience Sequence Post's post-production artistry. Explore our diverse film and television work, showcasing creative excellence and technical mastery in visual storytelling.
+      </p>
+    </div>
+    <div class="filter-bar reveal reveal-delay-3">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="drama">Drama</button>
+      <button class="filter-btn" data-filter="horror">Horror</button>
+      <button class="filter-btn" data-filter="comedy">Comedy</button>
+      <button class="filter-btn" data-filter="thriller">Thriller</button>
+    </div>
+  </div>
+
+  <div class="projects-grid" id="projectsGrid"></div>
+
+  <h3 class="more-projects-label reveal">More Projects</h3>
+  <div class="projects-grid-small" id="moreProjectsGrid"></div>
+</section>
+
+<!-- Work CTA Banner -->
+<div class="cta-banner">
+  <h3>Your Story, Our Expertise.</h3>
+  <p>Let us bring your vision to life with world-class post-production.</p>
+  <a href="#contact" class="btn btn-white">Get in Touch</a>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services" class="section-pad">
+  <div class="services-intro">
+    <div>
+      <span class="section-label reveal">What We Do</span>
+      <h2 class="section-title reveal reveal-delay-1">Crafting<br>Every Frame</h2>
+      <p class="section-subtitle reveal reveal-delay-2">
+        Providing seamless, high-quality post-production solutions, ensuring every project achieves its full creative potential while adhering to the highest technical standards.
+      </p>
+    </div>
+    <div class="services-visual reveal reveal-delay-3">
+      <div class="color-bars">
+        <div class="color-bar"></div><div class="color-bar"></div>
+        <div class="color-bar"></div><div class="color-bar"></div>
+        <div class="color-bar"></div><div class="color-bar"></div>
+        <div class="color-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="core-services">
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+      </div>
+      <h3>Editorial</h3>
+      <p>Our skilled editors are passionate storytellers, crafting compelling narratives through meticulous attention to pacing, rhythm, and visual flow. We collaborate closely with directors and producers to shape the film or television project into its final, impactful form. From initial assembly to fine-cut and picture lock, we ensure a smooth and creative editorial process.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3a4.5 4.5 0 000 9 4.5 4.5 0 010 9"/><path d="M12 3a4.5 4.5 0 010 9 4.5 4.5 0 000 9"/></svg>
+      </div>
+      <h3>Color Grading</h3>
+      <p>Color is a powerful tool for mood and visual impact. Our experienced colorists utilize state-of-the-art technology to enhance the aesthetic of your project, creating the desired atmosphere, ensuring consistency across scenes, and delivering a visually stunning final product that aligns with your creative vision.</p>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+      </div>
+      <h3>Post Supervision</h3>
+      <p>Navigating the complexities of post-production requires expert guidance. Our post supervisors provide comprehensive oversight, managing workflows, schedules, and budgets with meticulous detail. We act as the central point of communication, ensuring a seamless and efficient process from pre-production through to final delivery, allowing you to focus on the creative aspects of your project.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Quote Banner -->
+<div class="quote-banner">
+  <p>At Sequence Post, we are dedicated to providing seamless and high-quality post-production solutions, ensuring every project achieves its full creative potential while adhering to the highest technical standards.</p>
+</div>
+
+<!-- Partner Services -->
+<section id="partners" class="section-pad" style="background:var(--void)">
+  <div class="partner-section">
+    <h3 class="partner-label reveal">Our Partner Services</h3>
+    <div class="partner-grid">
+      <div class="partner-card reveal">
+        <h4>Visual Effects</h4>
+        <p>Through our talented VFX partners, we can seamlessly integrate stunning visual effects into your project. From subtle enhancements to complex CGI sequences, we facilitate the creation of impactful visuals that elevate your storytelling.</p>
+      </div>
+      <div class="partner-card reveal reveal-delay-1">
+        <h4>Motion Graphics</h4>
+        <p>Partnering with skilled motion graphics artists, we can create dynamic and engaging visual elements, including titles, lower thirds, infographics, and animated sequences that enhance your project's communication and visual appeal.</p>
+      </div>
+      <div class="partner-card reveal reveal-delay-2">
+        <h4>Sound Design</h4>
+        <p>Our sound design partners craft immersive and engaging audio experiences. From intricate soundscapes to impactful effects, we ensure that the audio elements of your project are as compelling and polished as the visuals.</p>
+      </div>
+      <div class="partner-card reveal reveal-delay-3">
+        <h4>Mastering (Audio)</h4>
+        <p>Our audio mastering partners provide the final polish and optimization to your project's sound. We ensure consistent levels, clarity, and overall sonic quality, preparing your audio for optimal playback across various platforms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Services CTA Banner -->
+<div class="cta-banner">
+  <p>Ready to discuss how Sequence Post and our partners can bring your film or television project to its full potential?</p>
+  <a href="#contact" class="btn btn-white">Enquire Now</a>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact" class="section-pad">
+  <span class="section-label reveal">Get In Touch</span>
+  <h2 class="section-title reveal reveal-delay-1">Let's Work<br>Together</h2>
+  <p class="contact-header-text reveal reveal-delay-2">For inquiries regarding our post-production services, please complete the form below. We will review your submission and respond to you in a timely manner.</p>
+
+  <div class="contact-layout">
+    <div class="contact-info reveal reveal-delay-2">
+      <div class="contact-detail">
+        <label>Email</label>
+        <a href="mailto:info@sequencepost.net">info@sequencepost.net</a>
+      </div>
+      <div class="contact-detail">
+        <label>Phone</label>
+        <a href="tel:+27114635250">011 463 5250</a>
+      </div>
+      <div class="contact-detail">
+        <label>Address</label>
+        <p>84 Bram Fischer Dr<br>Ferndale, Randburg, 2194<br>South Africa</p>
+      </div>
+      <div class="contact-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.7!2d28.0!3d-26.1!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDA2JzAwLjAiUyAyOMKwMDAnMDAuMCJF!5e0!3m2!1sen!2sza!4v1" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <div class="contact-form reveal reveal-delay-3">
+      <h3 class="form-title">Start a Project</h3>
+      <p class="form-subtitle">Tell us about your project and we'll get back to you.</p>
+      <form id="contactForm" onsubmit="return false">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" placeholder="Full name" required>
+          </div>
+          <div class="form-group">
+            <label>Your Email *</label>
+            <input type="email" placeholder="email@example.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Project Type *</label>
+          <select required>
+            <option value="" disabled selected>Choose project type</option>
+            <option>Film</option>
+            <option>TV Series</option>
+            <option>Commercial</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Services Interested In *</label>
+          <div class="form-checks">
+            <label class="form-check"><input type="checkbox"><span>Editorial</span></label>
+            <label class="form-check"><input type="checkbox"><span>Grade</span></label>
+            <label class="form-check"><input type="checkbox"><span>Post Supervision</span></label>
+            <label class="form-check"><input type="checkbox"><span>VFX</span></label>
+            <label class="form-check"><input type="checkbox"><span>Sound Design</span></label>
+            <label class="form-check"><input type="checkbox"><span>Delivery</span></label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Brief Project Description</label>
+          <textarea placeholder="Tell us about your project..."></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Estimated Budget <span class="form-optional">(Optional)</span></label>
+            <input type="text" placeholder="e.g. R500,000 - R1,000,000">
+          </div>
+          <div class="form-group">
+            <label>Timeline <span class="form-optional">(Optional)</span></label>
+            <input type="text" placeholder="e.g. 3 months, Q2 2026">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Any Other Comments / Questions</label>
+          <textarea placeholder="Anything else you'd like us to know..." style="min-height:80px"></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+            Send Inquiry
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div>
+        <span class="footer-copy">&copy; 2025 Sequence Post. All Rights Reserved.</span>
+        <div class="footer-tagline">A dedicated post-production facility for the film industry.</div>
+      </div>
+      <div class="footer-socials">
+        <a href="https://x.com/PostSequence" target="_blank" rel="noopener" aria-label="X / Twitter">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://vimeo.com/thesequencepost" target="_blank" rel="noopener" aria-label="Vimeo">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609C15.9 20.15 12.999 22 10.555 22c-1.517 0-2.8-1.4-3.848-4.196l-2.1-7.7C3.88 7.3 3.1 5.9 2.262 5.9c-.18 0-.806.378-1.881 1.132L0 6.569A316 316 0 003.501 3.29C5.042 1.93 6.21 1.213 7.005 1.153c1.938-.186 3.13 1.14 3.578 3.975.482 3.06.816 4.963 1.003 5.713.557 2.53 1.172 3.796 1.842 3.796.52 0 1.301-.822 2.341-2.466 1.04-1.644 1.596-2.896 1.668-3.756.148-1.42-.41-2.131-1.67-2.131-.594 0-1.207.136-1.838.406 1.222-4.003 3.555-5.95 7.003-5.849 2.557.067 3.763 1.733 3.617 5z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@sequencepostproduction" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </a>
+        <a href="https://www.imdb.com/name/nm6713378/" target="_blank" rel="noopener" aria-label="IMDb">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.31 9.588v4.824H15.4V9.588zM22.632 0H1.368A1.37 1.37 0 000 1.368v21.264C0 23.388.612 24 1.368 24h21.264c.756 0 1.368-.612 1.368-1.368V1.368C24 .612 23.388 0 22.632 0zM4.656 17.04H2.832V6.96h1.824zM11.4 17.04H9.744l-.024-5.04-.936 5.04H7.464l-.96-4.848-.024 4.848H4.92V6.96h2.544l.72 4.2.672-4.2h2.544zm4.344 0h-1.64v-.576c-.456.48-.96.72-1.464.72-.384 0-.66-.12-.816-.384-.12-.192-.168-.504-.168-.984V6.96H13.2v8.208c0 .192.024.336.072.384.048.072.168.096.336.096h.192v1.392zm5.424-4.08c0 .864-.024 1.44-.072 1.776-.048.312-.168.576-.336.768-.168.216-.384.36-.648.432-.264.072-.672.12-1.224.12h-2.448V6.96h2.448c.528 0 .936.024 1.2.12.264.072.492.216.66.432.168.192.288.456.336.744.048.312.072.9.072 1.752v2.952z"/><path d="M18.864 9.168c0-.432-.192-.648-.576-.648h-.36v5.952h.36c.384 0 .576-.216.576-.648V9.168z"/></svg>
+        </a>
+        <a href="https://www.facebook.com/sequencepostproductionservices/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-right">
+      <a href="#home">Back to Top &uarr;</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ VIDEO MODAL ═══ -->
+<div class="modal-overlay" id="videoModal">
+  <button class="modal-close" id="modalClose">&times;</button>
+  <div class="modal-video">
+    <iframe id="modalIframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+// ── PROJECT DATA ──
+const featuredProjects = [
+  {
+    id:'t2i-RDKfTa4', title:"Kings of Jo'burg Season 3", director:'Samad Davis',
+    genre:'Crime Drama', tags:['drama','thriller'],
+    tagline:'Power runs in the family. So does the curse.'
+  },
+  {
+    id:'1TXrTTWC_Qk', title:'The Fragile King', director:'Tristan Holmes',
+    genre:'Drama', tags:['drama'],
+    tagline:'Two lost souls. One unexpected bond.'
+  },
+  {
+    id:'PUNRQAEpulw', title:'Headspace', director:'Gerhard Painter & Paul Louis Meyer',
+    genre:'Sci-Fi Adventure', tags:['comedy'],
+    tagline:'What happens when three aliens crash-land... inside a teenager\'s brain?'
+  },
+  {
+    id:'XoR5wiaR29w', title:'Mr. Johnson', director:'William Collinson',
+    genre:'Comedy-Drama', tags:['comedy','drama'],
+    tagline:'50 years gone. A lifetime to reclaim.'
+  },
+  {
+    id:'Fho2HMd3cjM', title:'The Tokoloshe', director:'Jerome Pekwane',
+    genre:'Supernatural Horror', tags:['horror'],
+    tagline:'She ran from her past. Now, the nightmare has found her.'
+  },
+  {
+    id:'xZ-fwS70fM8', title:'POU (Peacock)', director:'Jaco Minaar',
+    genre:'Gothic Horror', tags:['horror'],
+    tagline:'Desire. Darkness. A haunted past.'
+  },
+  {
+    id:'JVd22i7A5_0', title:'The Letter Reader', director:'Sibusiso Khuzwayo',
+    genre:'Drama', tags:['drama'],
+    tagline:'Words have the power to heal... or to break a heart.'
+  },
+  {
+    id:'trxAxEhAgr0', title:"Kings of Jo'burg Season 2", director:'Samad Davis, Zolani Phakade & Andries Van Der Merwe',
+    genre:'Netflix Series', tags:['drama','thriller'],
+    tagline:'Power. Betrayal. The curse continues.'
+  },
+];
+
+const moreProjects = [
+  {
+    id:'y5L3enHPp6A', title:"Father's Day", director:'Tumelo Lekena',
+    genre:'Drama', tags:['drama'],
+    tagline:'An award-winning story of family, identity, and the search for truth.'
+  },
+  {
+    id:'T-n9jqlSmlY', title:'Die Spook van Uniondale', director:'Pierre Smith',
+    genre:'Romantic Comedy', tags:['comedy','drama'],
+    tagline:'A legendary ghost. A love story for the ages.'
+  },
+  {
+    id:'e_VXkhuoAaw', title:'Old Righteous Blues', director:'Muneera Sallies',
+    genre:'Drama', tags:['drama'],
+    tagline:'A dream worth fighting for. A past that won\'t let go.'
+  },
+  {
+    id:'bSYwXonY7n8', title:'Terror Lake Drive', director:'Jerry LaMothe',
+    genre:'Psychological Thriller', tags:['thriller'],
+    tagline:'You can run... but some forces will always find you.'
+  },
+  {
+    id:'5AVPLHc5mGI', title:'Smart Casuals', director:'Zwo Farisani',
+    genre:'Romantic Drama', tags:['drama','comedy'],
+    tagline:'Two couples. One beginning. One unraveling.'
+  },
+  {
+    id:'g7-v1fwcRAY', title:'Mrs Right Guy', director:'Adze Ugah',
+    genre:'Romantic Comedy', tags:['comedy'],
+    tagline:'She\'s sworn off love... but love isn\'t done with her.'
+  },
+  {
+    id:'7O2EsYo6AuI', title:'Six in the City', director:'Star Mphahlele',
+    genre:'Comedy-Drama', tags:['comedy','drama'],
+    tagline:'One breakup. Five friends. Zero chill.'
+  },
+  {
+    id:'tCH0T_GcxyA', title:"Life's a Drag", director:'Kate D\'hotman',
+    genre:'Horror Comedy', tags:['horror','comedy'],
+    tagline:'Dead-end job. Dead boss. Undead love.'
+  },
+  {
+    id:'QBWlmIK8-D0', title:'Love By Chance', director:'Samad Davis',
+    genre:'Romantic Comedy', tags:['comedy'],
+    tagline:'Chasing dreams. Facing rejection. Finding love... by chance.'
+  },
+  {
+    id:'gx3XEZoAj6Q', title:'TSHEPO', director:'Nozipho Nkelemba',
+    genre:'Crime Drama', tags:['drama','thriller'],
+    tagline:'One choice. No way out.'
+  },
+  {
+    id:'fN5xkp6mN1Y', title:'BLESSERS', director:'Rea Rangaka',
+    genre:'Drama', tags:['drama'],
+    tagline:'He had it all... until he wanted more.'
+  },
+  {
+    id:'k2HloxyKCPM', title:'Love Lives Here', director:'Nozipho Nkelemba',
+    genre:'Romantic Drama', tags:['drama'],
+    tagline:'She knows what she wants. But is love ever that simple?'
+  },
+];
+
+// ── RENDER PROJECTS ──
+function projectCard(p, small) {
+  const thumb = `https://img.youtube.com/vi/${p.id}/maxresdefault.jpg`;
+  const cls = small ? 'project-card-sm' : 'project-card';
+  return `
+    <div class="${cls} reveal" data-tags="${p.tags.join(',')}" data-video="${p.id}">
+      <div class="project-thumb">
+        <img src="${thumb}" alt="${p.title}" loading="lazy"
+             onerror="this.src='https://img.youtube.com/vi/${p.id}/hqdefault.jpg'">
+        <div class="project-play">
+          <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" fill="rgba(224,75,37,.9)"/><path d="M26 20l20 12-20 12z" fill="#fff"/></svg>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-genre">${p.genre}</div>
+        <div class="project-name">${p.title}</div>
+        ${p.director ? `<div class="project-director">Dir. ${p.director}</div>` : ''}
+        ${p.tagline ? `<div class="project-tagline">${p.tagline}</div>` : ''}
+      </div>
+    </div>`;
+}
+
+document.getElementById('projectsGrid').innerHTML = featuredProjects.map(p => projectCard(p, false)).join('');
+document.getElementById('moreProjectsGrid').innerHTML = moreProjects.map(p => projectCard(p, true)).join('');
+
+// ── VIDEO MODAL ──
+const modal = document.getElementById('videoModal');
+const modalIframe = document.getElementById('modalIframe');
+
+document.addEventListener('click', e => {
+  const card = e.target.closest('[data-video]');
+  if (card) {
+    const vid = card.dataset.video;
+    modalIframe.src = `https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&rel=0`;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+});
+
+function closeModal() {
+  modal.classList.remove('open');
+  modalIframe.src = '';
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── FILTER ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('#projectsGrid .project-card, #moreProjectsGrid .project-card-sm').forEach(card => {
+      if (filter === 'all' || card.dataset.tags.includes(filter)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// ── NAV SCROLL ──
+const nav = document.getElementById('mainNav');
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+  });
+}, { passive: true });
+
+// ── MOBILE MENU ──
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => {
+    burger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ── REVEAL ON SCROLL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── HERO SLIDESHOW ──
+const heroSlideNames = [
+  'FATHERSDAY_0035','FATHERSDAY_0101','FATHERSDAY_0198','FATHERSDAY_0228','FATHERSDAY_0236',
+  'HEADSPACE.000031','HEADSPACE.000059','HEADSPACE.000075','HEADSPACE.000250','HEADSPACE.000285',
+  'HEADSPACE.000423','HEADSPACE.000498','HEADSPACE.000634','HEADSPACE.000843','HEADSPACE.000911',
+  'HEADSPACE.000947','HEADSPACE.000989','HEADSPACE.001082','HEADSPACE.001184','HEADSPACE.001238',
+  'HEADSPACE.001282','HEADSPACE.001508','HEADSPACE.001573','HEADSPACE.001611',
+  'KOJ2_01','KOJ2_02','KOJ2_03','KOJ2_04','KOJ2_05','KOJ2_06','KOJ2_07',
+  'MJ_01','MJ_02','MJ_03','MJ_04','MJ_05',
+  'ORB_0019','ORB_0039','ORB_0043','ORB_0112','ORB_0209','ORB_0315','ORB_0371','ORB_0452','ORB_0593','ORB_0609','ORB_0647','ORB_0787',
+  'POU_01','POU_02','POU_03','POU_04','POU_05','POU_06','POU_07',
+  'SITC_01','SITC_02','SITC_03','SITC_04',
+  'SMART_CASUALS_0050','SMART_CASUALS_0152','SMART_CASUALS_0183','SMART_CASUALS_0282',
+  'SPOOK_01','SPOOK_02','SPOOK_03','SPOOK_05','SPOOK_06','SPOOK_07','SPOOK_08','SPOOK_09','SPOOK_10',
+  'TFK_0025','TFK_0051','TFK_0052','TFK_0073','TFK_0077','TFK_0119','TFK_0120','TFK_0180','TFK_0213','TFK_0236','TFK_0406','TFK_0419',
+  'TLD_01','TLD_02','TLD_03','TLD_04','TLD_05',
+  'TLR_01','TLR_02','TLR_03','TLR_04','TLR_05','TLR_06','TLR_07',
+  'TOK_01','TOK_02','TOK_03','TOK_04','TOK_05','TOK_06','TOK_09','TOK_10'
+];
+// Shuffle slides for variety on each visit
+for (let i = heroSlideNames.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [heroSlideNames[i], heroSlideNames[j]] = [heroSlideNames[j], heroSlideNames[i]];
+}
+const slideshowEl = document.getElementById('heroSlideshow');
+const heroSlideEls = [];
+heroSlideNames.forEach((name, i) => {
+  const div = document.createElement('div');
+  div.className = 'hero-slide' + (i === 0 ? ' active' : '');
+  div.dataset.src = `assets/carousel/${name}.webp`;
+  heroSlideEls.push(div);
+  slideshowEl.appendChild(div);
+});
+// Preload: load the first few images eagerly, rest on demand
+function loadSlideImage(index) {
+  const el = heroSlideEls[index];
+  if (el && el.dataset.src && !el.style.backgroundImage) {
+    el.style.backgroundImage = `url(${el.dataset.src})`;
+  }
+}
+// Load first 3 immediately
+for (let i = 0; i < 3 && i < heroSlideEls.length; i++) loadSlideImage(i);
+
+let currentSlide = 0;
+setInterval(() => {
+  heroSlideEls[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % heroSlideEls.length;
+  heroSlideEls[currentSlide].classList.add('active');
+  // Preload next 2 slides
+  loadSlideImage((currentSlide + 1) % heroSlideEls.length);
+  loadSlideImage((currentSlide + 2) % heroSlideEls.length);
+}, 5000);
+
+// ── HERO LOAD ANIMATION ──
+window.addEventListener('load', () => {
+  setTimeout(() => document.querySelector('#home').classList.add('hero-loaded'), 200);
+});
+</script>
+</body>
+</html>
