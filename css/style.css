@@ -1,0 +1,400 @@
+/* ─── 1. CORE VARIABLES & RESET ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --flame: #FF4D00;        /* Vibrant Studio Orange */
+  --flame-glow: rgba(255, 77, 0, 0.4);
+  --void: #191919;         /* OLED Black */
+  --soot: #0E0E12;
+  --charcoal: #0D0D0F; 
+  --ash: #16161A;
+  --smoke: #2A2A34;
+  --fog: #9999A8;
+  --light: #F0EDE8;
+  --glass: rgba(255, 255, 255, 0.03);
+  --ui-border: rgba(255, 255, 255, 0.08);
+  
+  --display: 'Bebas Neue', sans-serif;
+  --body: 'DM Sans', sans-serif;
+  --nav-h: 80px;
+}
+
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--flame) var(--soot); }
+body {
+  font-family: var(--body);
+  background: var(--void);
+  color: var(--light);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Cinematic Vignette Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none;
+  z-index: 50;
+}
+
+/* Film Grain */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ─── 2. NAVIGATION ─── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(24px, 4vw, 64px);
+  transition: all 0.4s;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(5, 5, 6, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--ui-border);
+}
+.nav-logo img { height: 32px; width: auto; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--fog); text-decoration: none; position: relative; transition: color .3s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--flame); }
+
+/* Mobile Menu Trigger */
+.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.nav-burger span { width: 22px; height: 1.5px; background: var(--light); transition: .3s; }
+
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 999; background: var(--void);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+  opacity: 0; pointer-events: none; transition: .4s;
+}
+.mobile-menu.open { opacity: 1; pointer-events: auto; }
+.mobile-menu a { font-family: var(--display); font-size: 48px; color: var(--light); text-decoration: none; }
+
+/* ─── 3. BUTTONS & UI ─── */
+.btn {
+  display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+  text-decoration: none; transition: .4s; border-radius: 2px;
+}
+.btn-primary { background: var(--flame); color: white; box-shadow: 0 4px 15px var(--flame-glow); }
+.btn-primary:hover { transform: translateY(-3px); background: #ff5e1a; box-shadow: 0 8px 25px var(--flame-glow); }
+.btn-ghost { border: 1px solid var(--ui-border); color: var(--light); }
+.btn-ghost:hover { border-color: var(--flame); color: var(--flame); }
+
+/* This is the part that adds the orange line to EVERY section label */
+.section-label::before, .hero-eyebrow::before {
+  content: "";
+  width: 40px;
+  height: 1px;
+  background: var(--flame);
+  flex-shrink: 0;
+}
+
+/* ─── 4. REVEAL ANIMATIONS ─── */
+.reveal { 
+  opacity: 0; 
+  transform: translateY(30px); /* Starts lower */
+  transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); 
+}
+
+.reveal.visible { 
+  opacity: 1; 
+  transform: translateY(0); /* Ends in place */
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .contact-layout { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  .nav-burger { display: flex; }
+}
+
+/* ─── 5. HERO SECTION ─── */
+#home { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+.hero-slideshow { position: absolute; inset: 0; z-index: 0; }
+.hero-slide { 
+  position: absolute; inset: 0; background-size: cover; background-position: center; 
+  opacity: 0; transition: opacity 1.5s ease-in-out; 
+}
+.hero-slide.active { opacity: 1; }
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, transparent 50%, var(--void) 100%),
+              linear-gradient(90deg, rgba(5,5,6,0.8) 0%, transparent 100%);
+}
+.hero-content { position: relative; z-index: 2; padding: 0 clamp(24px, 4vw, 64px); max-width: 1000px; }
+.hero-eyebrow { 
+  color: var(--flame); 
+  letter-spacing: 0.3em; 
+  text-transform: uppercase; 
+  font-size: 12px; 
+  margin-bottom: 20px; 
+  display: flex;        
+  align-items: center;  
+  gap: 15px;            
+}
+.hero-title { font-family: var(--display); font-size: clamp(50px, 10vw, 110px); line-height: 0.9; margin-bottom: 24px; letter-spacing: -0.02em; }
+.accent { color: var(--flame) !important; }
+.hero-desc { color: var(--fog); max-width: 600px; line-height: 1.8; font-size: 17px; }
+
+.hero-ctas { 
+  display: flex; 
+  gap: 16px; 
+  margin-top: 48px; 
+  flex-wrap: wrap; 
+}
+
+/* ─── 6. MODAL & TICKER ─── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.95);
+  display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: .3s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal-video { width: 90%; aspect-ratio: 16/9; max-width: 1100px; }
+.modal-video iframe { width: 100%; height: 100%; border: none; }
+.modal-close { position: absolute; top: 30px; right: 30px; color: white; font-size: 40px; cursor: pointer; background: none; border: none; }
+
+/* REPLACED CODE STARTS HERE */
+.ticker-wrap { 
+  position: absolute; 
+  bottom: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 20;
+  
+  background: rgba(13, 13, 15, 0.85); 
+  backdrop-filter: blur(10px); 
+  border-top: 1px solid var(--ui-border); 
+  padding: 20px 0; 
+  overflow: hidden; 
+
+  /* THE FADE MASK */
+  -webkit-mask-image: linear-gradient(
+    to right, 
+    rgba(0,0,0,0) 0%, 
+    rgba(0,0,0,1) 20%, 
+    rgba(0,0,0,1) 80%, 
+    rgba(0,0,0,0) 100%
+  );
+  mask-image: linear-gradient(
+    to left, 
+    rgba(0,0,0,0) 0%, 
+    rgba(0,0,0,1) 20%, 
+    rgba(0,0,0,1) 80%, 
+    rgba(0,0,0,0) 100%
+  );
+}
+
+.ticker { 
+  display: flex; 
+  gap: 80px; 
+  animation: scroll 20s linear infinite; 
+  white-space: nowrap;
+  align-items: center;
+  /* ADD THIS LINE: Ensures the ticker doesn't wrap or stop early */
+  width: max-content; 
+}
+
+.ticker-logo { 
+  height: 50px;      
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1); 
+  opacity: 0.6;      
+  transition: opacity 0.3s;
+  /* ADD THIS LINE: Prevents logos from shrinking on small screens */
+  flex-shrink: 0; 
+}
+
+.ticker-logo:hover {
+  opacity: 1;        
+}
+
+/* UPDATE THIS PART: Change -50% to -33.333% */
+@keyframes scroll { 
+  from { transform: translateX(0); } 
+  to { transform: translateX(-33.333%); } 
+}
+/* REPLACED CODE ENDS HERE */
+
+/* ─── 7. AWARDS SECTION ─── */
+.awards-header {
+  text-align: left;
+  margin-bottom: 56px;
+  padding: 0 clamp(24px, 4vw, 64px); /* This aligns it with the Hero */
+}
+
+.awards-scroll {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  overflow: hidden; /* Important to keep the track inside */
+  
+  /* Increased to 25% and 75% for a much deeper fade */
+-webkit-mask-image: linear-gradient(
+    to right, 
+    rgba(0,0,0,0) 0%, 
+    rgba(0,0,0,1) 25%, 
+    rgba(0,0,0,1) 75%, 
+    rgba(0,0,0,0) 100%
+  );
+  mask-image: linear-gradient(
+    to left, 
+    rgba(0,0,0,0) 0%, 
+    rgba(0,0,0,1) 25%, 
+    rgba(0,0,0,1) 75%, 
+    rgba(0,0,0,0) 100%
+  );
+  
+  margin-top: 20px;
+}
+
+.awards-track { 
+  display: flex; 
+  gap: 20px; 
+  animation: scroll 75s linear infinite; 
+  width: max-content; 
+}
+
+.award-item {
+  background: var(--glass); border: 1px solid var(--ui-border); backdrop-filter: blur(5px);
+  padding: 30px; min-width: 250px; text-align: center;
+}
+
+.award-festival { font-family: var(--display); font-size: 20px; letter-spacing: 0.05em; color: var(--light); }
+.award-category { color: var(--flame); font-size: 15px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
+@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
+
+.awards-section { 
+  background: var(--charcoal); 
+  padding: 80px 0; 
+  border-top: 1px solid var(--ui-border); 
+  overflow: hidden; 
+}
+
+/* ─── 8. WORK / PROJECTS GRID ─── */
+.section-pad { padding: 120px clamp(24px, 4vw, 64px); }
+.section-label { 
+  color: var(--flame); 
+  text-transform: uppercase; 
+  font-size: 11px; 
+  letter-spacing: 0.3em; 
+  font-weight: 700; 
+  margin-bottom: 15px; 
+  display: flex; 
+  align-items: center; 
+  gap: 15px; 
+}
+.section-subtitle {
+  margin-bottom: 40px; /* This creates the gap where you drew the line */
+  max-width: 800px;    /* Optional: prevents the text from stretching too wide */
+  line-height: 1.6;    /* Optional: makes the text easier to read */
+}
+
+/* You can also add this to give the buttons some breathing room */
+.filter-bar {
+  margin-bottom: 30px; 
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ─── 9. VIDEO GRIDS ─── */
+.section-title { font-family: var(--display); font-size: clamp(40px, 6vw, 80px); line-height: 1; margin-bottom: 30px; }
+
+.filter-bar { display: flex; gap: 10px; margin-bottom: 40px; }
+.filter-btn { 
+  background: transparent; border: 1px solid var(--ui-border); color: var(--fog); 
+  padding: 8px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; transition: .3s;
+}
+.filter-btn.active, .filter-btn:hover { border-color: var(--flame); color: var(--flame); background: rgba(255, 77, 0, 0.05); }
+
+.projects-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 450px), 1fr)); gap: 30px;
+}
+.project-card {
+  background: var(--charcoal); border: 1px solid var(--ui-border); 
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer;
+}
+.project-thumb {
+  width: 100%; aspect-ratio: 16 / 9; overflow: hidden; position: relative;
+  filter: grayscale(0.3); transition: .5s;
+}
+.project-thumb img { width: 100%; height: 100%; object-fit: cover; transition: .6s; }
+.project-card:hover { border-color: var(--flame); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+.project-card:hover .project-thumb { filter: grayscale(0); }
+.project-card:hover .project-thumb img { transform: scale(1.05); }
+
+.project-info { padding: 25px; }
+.project-genre { color: var(--flame); font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px; }
+.project-name { font-family: var(--display); font-size: 28px; letter-spacing: 0.03em; margin-bottom: 5px; }
+.project-director { font-size: 13px; color: var(--fog); }
+
+/* Small Grid */
+.projects-grid-small { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 40px; }
+.project-card-sm .project-name { font-size: 20px; }
+
+/* Ensure the modal content can scroll if the info is long */
+.modal-content-wrapper {
+  width: 90%;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #0d0d0f; /* Dark background */
+  border: 1px solid var(--ui-border);
+  position: relative;
+  margin: 40px auto;
+}
+
+.modal-info-details {
+  padding: 40px;
+  background: linear-gradient(to bottom, rgba(20,20,22,1), #0d0d0f);
+}
+
+/* Scrollbar styling for the modal info */
+.modal-content-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-content-wrapper::-webkit-scrollbar-thumb {
+  background: var(--flame);
+}
+
+/* Ensure the video container keeps its aspect ratio */
+.modal-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+/* ─── 9. SERVICES ─── */
+.core-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; background: var(--ui-border); border: 1px solid var(--ui-border); }
+.service-card { background: var(--void); padding: 50px; transition: .4s; }
+.service-card:hover { background: var(--charcoal); }
+.service-icon { color: var(--flame); width: 40px; margin-bottom: 25px; }
+.service-card h3 { font-family: var(--display); font-size: 32px; margin-bottom: 15px; }
+.service-card p { color: var(--fog); font-size: 14px; line-height: 1.7; }
+
+/* ─── 10. CONTACT & FOOTER ─── */
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.contact-form { background: var(--charcoal); padding: 40px; border: 1px solid var(--ui-border); }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fog); margin-bottom: 8px; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; background: var(--void); border: 1px solid var(--ui-border); padding: 12px; color: white; outline: none;
+}
+.form-group input:focus { border-color: var(--flame); }
+
+.footer { padding: 60px clamp(24px, 4vw, 64px); border-top: 1px solid var(--ui-border); }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; }
+.footer-socials { display: flex; gap: 20px; }
+.footer-socials svg { width: 18px; color: var(--fog); transition: .3s; }
+.footer-socials a:hover svg { color: var(--flame); }
+
