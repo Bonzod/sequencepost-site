@@ -68,8 +68,29 @@ body::after {
 .nav-links a:hover, .nav-links a.active { color: var(--flame); }
 
 /* Mobile Menu Trigger */
-.nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-.nav-burger span { width: 22px; height: 1.5px; background: var(--light); transition: .3s; }
+.nav-burger {
+  display: none; /* Stays hidden on desktop */
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* Keeps burger above the mobile overlay */
+}
+
+.nav-burger span {
+  width: 100%;
+  height: 2px;
+  background-color: var(--light);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* This creates the 'X' when the menu is open */
+.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .mobile-menu {
   position: fixed; inset: 0; z-index: 999; background: var(--void);
@@ -164,9 +185,12 @@ body::after {
 
 /* Responsive */
 @media (max-width: 900px) {
-  .contact-layout { grid-template-columns: 1fr; }
-  .nav-links { display: none; }
-  .nav-burger { display: flex; }
+  .nav-burger {
+    display: flex; /* This turns the burger ON for mobile */
+  }
+  .nav-links {
+    display: none; /* This hides the text links on mobile */
+  }
 }
 
 /* ─── 6. HERO SECTION ─── */
@@ -202,6 +226,66 @@ body::after {
   gap: 16px; 
   margin-top: 48px; 
   flex-wrap: wrap; 
+}
+/* --- HERO SCROLL INDICATOR --- */
+.scroll-indicator {
+  position: absolute;
+  bottom: 110px; /* Sits exactly above the ticker */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+  opacity: 0;
+  /* This waits for the hero to load before appearing */
+  animation: fadeInIndicator 1s ease 2.5s forwards; 
+}
+
+.mouse {
+  width: 22px;
+  height: 38px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  position: relative;
+}
+
+.wheel {
+  width: 3px;
+  height: 7px;
+  background: var(--flame);
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scrollWheel 2s infinite;
+}
+
+.scroll-indicator span {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--fog);
+  font-weight: 500;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes scrollWheel {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 15px); }
+}
+
+@keyframes fadeInIndicator {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Hide on small screens to keep the hero clean */
+@media (max-height: 700px) {
+  .scroll-indicator { display: none; }
 }
 
 /* ─── 7. MODAL & TICKER ─── */
