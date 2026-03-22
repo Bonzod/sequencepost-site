@@ -1,3 +1,12 @@
+# Dependencies
 node_modules/
+dist/
+build/
+
+# Environment variables (Crucial for security!)
+.env
+.env.local
+
+# OS generated files
 .DS_Store
-*.log
+Thumbs.db

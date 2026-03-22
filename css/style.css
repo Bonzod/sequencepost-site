@@ -16,7 +16,7 @@
   
   --display: 'Bebas Neue', sans-serif;
   --body: 'DM Sans', sans-serif;
-  --nav-h: 80px;
+  --nav-h: 65px;
 }
 
 html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--flame) var(--soot); }
@@ -99,7 +99,58 @@ body::after {
   flex-shrink: 0;
 }
 
-/* ─── 4. REVEAL ANIMATIONS ─── */
+/* ── 4. CTA BANNER ── */
+.cta-banner {
+  background: var(--flame); 
+  padding: 20px 20px;      /* Large vertical padding for that "ribbon" feel */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cta-content {
+  display: flex;
+  flex-direction: column;   /* Stacks text and button */
+  align-items: center;
+  gap: 20px;                /* Creates space between the quote and the button */
+  max-width: 900px;
+}
+
+.cta-banner p {
+  color: #ffffff;
+  font-size: clamp(20px, 2.5vw, 20px);
+  font-style: normal;      /* <--- THIS IS THE CODE FOR NOT ITALIC */
+  font-weight: 500;       /* I added a bit of weight so it looks bold and professional */
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: 0.01em; /* Optional: makes clean text easier to read */
+}
+
+/* ── THE CTA BUTTON ── */
+.btn-white {
+  display: inline-block;
+  background: #ffffff;
+  color: var(--flame);      /* Orange text on white button */
+  padding: 18px 45px;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-white:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  background: #fdfdfd;
+  letter-spacing: 0.2em;    /* Subtle elegant hover effect */
+}
+
+/* ─── 5. REVEAL ANIMATIONS ─── */
 .reveal { 
   opacity: 0; 
   transform: translateY(30px); /* Starts lower */
@@ -118,7 +169,7 @@ body::after {
   .nav-burger { display: flex; }
 }
 
-/* ─── 5. HERO SECTION ─── */
+/* ─── 6. HERO SECTION ─── */
 #home { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
 .hero-slideshow { position: absolute; inset: 0; z-index: 0; }
 .hero-slide { 
@@ -153,7 +204,7 @@ body::after {
   flex-wrap: wrap; 
 }
 
-/* ─── 6. MODAL & TICKER ─── */
+/* ─── 7. MODAL & TICKER ─── */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.95);
   display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: .3s;
@@ -226,7 +277,7 @@ body::after {
 }
 /* REPLACED CODE ENDS HERE */
 
-/* ─── 7. AWARDS SECTION ─── */
+/* ─── 8. AWARDS SECTION ─── */
 .awards-header {
   text-align: left;
   margin-bottom: 56px;
@@ -281,8 +332,11 @@ body::after {
   overflow: hidden; 
 }
 
-/* ─── 8. WORK / PROJECTS GRID ─── */
-.section-pad { padding: 120px clamp(24px, 4vw, 64px); }
+/* ─── 9. WORK / PROJECTS GRID ─── */
+.section-pad {
+  /* This 'clamp' ensures the space is consistent on small and large screens */
+  padding: 80px clamp(24px, 4vw, 64px); 
+}
 .section-label { 
   color: var(--flame); 
   text-transform: uppercase; 
@@ -374,24 +428,265 @@ body::after {
   aspect-ratio: 16 / 9;
 }
 
-/* ─── 9. SERVICES ─── */
-.core-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; background: var(--ui-border); border: 1px solid var(--ui-border); }
-.service-card { background: var(--void); padding: 50px; transition: .4s; }
-.service-card:hover { background: var(--charcoal); }
-.service-icon { color: var(--flame); width: 40px; margin-bottom: 25px; }
-.service-card h3 { font-family: var(--display); font-size: 32px; margin-bottom: 15px; }
-.service-card p { color: var(--fog); font-size: 14px; line-height: 1.7; }
-
-/* ─── 10. CONTACT & FOOTER ─── */
-.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
-.contact-form { background: var(--charcoal); padding: 40px; border: 1px solid var(--ui-border); }
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fog); margin-bottom: 8px; }
-.form-group input, .form-group textarea, .form-group select {
-  width: 100%; background: var(--void); border: 1px solid var(--ui-border); padding: 12px; color: white; outline: none;
+/* ─── 10. SERVICES ─── */
+.section-pad {
+  /* This 'clamp' ensures the space is consistent on small and large screens */
+  padding: 80px clamp(24px, 4vw, 64px); 
 }
-.form-group input:focus { border-color: var(--flame); }
+.core-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; background: var(--ui-border); border: 1px solid var(--ui-border); }
+.service-card {
+  padding: 50px 40px;
+  background: var(--charcoal);
+  border: 1px solid var(--ui-border);
+  position: relative;
+  transition: all 0.4s ease;
+  /* ADD THIS: This creates a clean "top-bar" look without needing icons */
+  border-top: 3px solid transparent; 
+}
 
+.service-card:hover {
+  border-top-color: var(--flame); /* The line turns orange on hover */
+  transform: translateY(-5px);
+  background: rgba(255, 77, 0, 0.02); /* Very subtle orange tint */
+}
+
+.service-card h3 {
+  font-family: var(--display);
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.service-card p {
+  color: var(--fog);
+  line-height: 1.7;
+  font-size: 15px;
+  margin: 0;
+}
+
+
+/* ─── SERVICES / HOVER BAR ─── */
+.color-bars {
+  display: flex;
+  gap: 8px; /* Slightly wider gap looks better with images */
+  width: 100%;
+  height: 400px; /* Set a fixed height for the visual */
+  position: relative;
+  z-index: 1;
+}
+
+.color-bar {
+  flex: 1; 
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  
+  /* Smooth transition for the expansion */
+  transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s;
+  
+  /* Image Setup */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ─── HOVER LOGIC ─── */
+
+/* 1. When the mouse enters the container, make all bars slightly darker/smaller */
+.color-bars:hover .color-bar {
+  flex: 0.6;
+  filter: brightness(0.5) grayscale(0.5);
+}
+
+/* 2. When hovering a SPECIFIC bar, make it expand and light up */
+.color-bars .color-bar:hover {
+  flex: 4; /* This controls how wide it gets */
+  filter: brightness(1.1) grayscale(0);
+  z-index: 2;
+}
+
+/* ─── INSERTING YOUR IMAGES ─── */
+/* Use a linear-gradient overlay so text (if any) remains readable */
+
+.color-bar:nth-child(1) { background-image: linear-gradient(to bottom,#1a1a2e,#16213e), url('assets/services/img1.webp'); }
+.color-bar:nth-child(2) { background-image: linear-gradient(to bottom,#2d1b1b,#1a0f0f), url('assets/services/img2.webp'); }
+.color-bar:nth-child(3) { background-image: linear-gradient(to bottom,#E04B25,#8B2E15), url('assets/services/img3.webp'); }
+.color-bar:nth-child(4) { background-image: linear-gradient(to bottom,#c4a35a,#7a6530), url('assets/services/img4.webp'); }
+.color-bar:nth-child(5) { background-image: linear-gradient(to bottom,#1c2e1c,#0f1a0f), url('assets/services/img5.webp'); }
+.color-bar:nth-child(6) { background-image: linear-gradient(to bottom,#2e2e3a,#1a1a22), url('assets/services/img6.webp'); }
+.color-bar:nth-child(7) { background-image: linear-gradient(to bottom,#3a1c1c,#1a0e0e), url('assets/services/img7.webp'); }
+
+/* Add Text Labels */
+.color-bar::after {
+  content: attr(data-label); /* Pulls text from HTML attribute */
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  font-family: var(--display);
+  font-size: 1.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s 0.2s; /* Slight delay for text appearance */
+  white-space: nowrap;
+}
+
+.color-bar:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 11. PARTNER SERVICES ─── */
+.partner-services-grid {
+  display: grid;
+  /* This 'repeat' logic creates 4 columns on desktop and 1 on mobile automatically */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+  gap: 30px;
+}
+
+/* Ensure the cards match the Core Services style we built earlier */
+.partner-services-grid .service-card {
+  height: 100%; /* Makes all cards the same height even if text length differs */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Optional: If you want the Partner cards to look slightly different, 
+   you can give them a different top border color, like 'var(--fog)' */
+#partners .service-card:hover {
+  border-top-color: var(--flame);
+}
+
+/* --- Contact Layout --- */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  margin-top: 3rem;
+}
+
+.contact-info { display: flex; flex-direction: column; gap: 2.5rem; }
+
+.contact-detail label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--fog);
+  margin-bottom: 0.5rem;
+  opacity: 0.5;
+}
+
+.contact-detail a, .contact-detail address {
+  font-size: 1.1rem;
+  color: #fff;
+  font-style: normal;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-detail a:hover { color: var(--flame); }
+
+/* Cinematic Map Filter */
+.contact-map {
+  width: 100%;
+  aspect-ratio: 16/9;
+  filter: grayscale(1) invert(0.9);
+  border: 1px solid var(--ui-border);
+  overflow: hidden;
+}
+.contact-map iframe { width: 100%; height: 100%; border: 0; }
+
+/* Editorial Form */
+.editorial-form { display: flex; flex-direction: column; gap: 1.5rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.form-group label { display: block; font-size: 0.8rem; margin-bottom: 0.75rem; color: var(--fog); }
+
+.editorial-form input, .editorial-form textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--ui-border);
+  padding: 1rem;
+  color: #fff;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.editorial-form input:focus, .editorial-form textarea:focus {
+  outline: none;
+  border-color: var(--flame);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Custom Select Component */
+.custom-select-wrapper { position: relative; width: 100%; }
+.select-trigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--ui-border);
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.custom-select-wrapper.is-open .select-trigger { border-color: var(--flame); background: rgba(255, 255, 255, 0.06); }
+
+.select-trigger .placeholder { color: var(--fog); font-size: 0.9rem; transition: color 0.3s; }
+.select-trigger .chevron { transition: transform 0.3s ease; opacity: 0.5; }
+.is-open .chevron { transform: rotate(180deg); color: var(--flame); opacity: 1; }
+
+.select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #0d0d0d;
+  border: 1px solid var(--ui-border);
+  border-top: none;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.is-open .select-options { opacity: 1; visibility: visible; transform: translateY(0); }
+
+.select-option {
+  padding: 1rem;
+  color: var(--fog);
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+.select-option:hover {
+  background: rgba(243, 82, 30, 0.1);
+  color: var(--flame);
+  padding-left: 1.25rem;
+  border-left-color: var(--flame);
+}
+.select-option.is-active { color: var(--flame); background: rgba(243, 82, 30, 0.05); }
+
+/* Custom Checkboxes */
+.form-checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
+.form-check { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; font-size: 0.85rem; color: var(--fog); transition: color 0.3s; }
+.form-check:hover { color: #fff; }
+.form-check input { display: none; }
+.check-custom { width: 16px; height: 16px; border: 1px solid var(--ui-border); position: relative; transition: all 0.3s; }
+.form-check input:checked + .check-custom { background: var(--flame); border-color: var(--flame); }
+
+/* Responsive */
+@media (max-width: 992px) {
+  .contact-layout { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-info { order: 2; }
+}
+
+/* ─── 12. FOOTER ─── */
 .footer { padding: 60px clamp(24px, 4vw, 64px); border-top: 1px solid var(--ui-border); }
 .footer-inner { display: flex; justify-content: space-between; align-items: center; }
 .footer-socials { display: flex; gap: 20px; }

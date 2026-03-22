@@ -1,14 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sequence Post — Where Stories Come to Life</title>
-<meta name="description" content="Sequence Post is a dedicated post-production facility for the film industry, driven by a passion for collaborative storytelling.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO & Social Media -->
+<title>Sequence Post | Film & TV Post-Production Johannesburg</title>
+<meta name="description" content="Sequence Post is South Africa's premier post-production facility. Specializing in high-end film editorial, color grading, and post-supervision for Netflix, M-Net, and global cinema.">
+<link rel="canonical" href="https://sequencepost.net/" />
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sequencepost.net/">
+<meta property="og:title" content="Sequence Post — High-End Film & TV Post-Production">
+<meta property="og:description" content="From offline editorial to final color grading, we bring award-winning stories to life. Discover our work for Netflix, Prime Video, and Showmax.">
+<meta property="og:image" content="https://sequencepost.net/assets/logos/og-share-image.jpg"> <!-- Use a 1200x630 image of the studio or a showreel frame -->
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://sequencepost.net/">
+<meta name="twitter:title" content="Sequence Post | Premiere Film Post-Production">
+<meta name="twitter:description" content="A dedicated post-production facility in Johannesburg specializing in editorial, color, and finishing.">
+<meta name="twitter:image" content="https://sequencepost.net/assets/logos/og-share-image.jpg">
+
+  <!-- Schema.org for Google Search -->
+  <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Sequence Post",
+  "image": "https://sequencepost.net/assets/logos/logo.webp",
+  "@id": "https://sequencepost.net/",
+  "url": "https://sequencepost.net/",
+  "telephone": "+27114635250",
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "84 Bram Fischer Dr",
+    "addressLocality": "Ferndale, Randburg",
+    "postalCode": "2194",
+    "addressCountry": "ZA"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -26.095, 
+    "longitude": 28.000
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "08:30",
+    "closes": "17:30"
+  },
+  "sameAs": [
+    "https://x.com/PostSequence",
+    "https://vimeo.com/thesequencepost",
+    "https://www.youtube.com/@sequencepostproduction",
+    "https://www.facebook.com/sequencepostproductionservices/",
+    "https://www.imdb.com/name/nm6713378/"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Post-Production Services",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Film Editorial" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Color Grading" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Post-Production Supervision" } }
+    ]
+  }
+}
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -359,12 +434,15 @@
   <div class="projects-grid-small" id="moreProjectsGrid"></div>
 </section>
 
-<!-- Work CTA Banner -->
-<div class="cta-banner">
-  <h3>Your Story, Our Expertise.</h3>
-  <p>Let us bring your vision to life with world-class post-production.</p>
-  <a href="#contact" class="btn btn-white">Get in Touch</a>
-</div>
+<!-- ── CTA QUOTE BANNER ── -->
+<section class="cta-banner reveal">
+  <div class="cta-content">
+    <p>
+      Your Story, Our Expertise. <br>Let us bring your vision to life with world-class post-production.
+    </p>
+    <a href="#contact" class="btn-white">Enquire Now</a>
+  </div>
+</section>
 
 <!-- ═══ SERVICES ═══ -->
 <section id="services" class="section-pad">
@@ -378,160 +456,197 @@
     </div>
     <div class="services-visual reveal reveal-delay-3">
       <div class="color-bars">
-        <div class="color-bar"></div><div class="color-bar"></div>
-        <div class="color-bar"></div><div class="color-bar"></div>
-        <div class="color-bar"></div><div class="color-bar"></div>
-        <div class="color-bar"></div>
+        <div class="color-bar" data-label="Editing"></div>
+        <div class="color-bar" data-label="Visual Effects"></div>
+        <div class="color-bar" data-label="Color Grading"></div>
+        <div class="color-bar" data-label="Sound Design"></div>
+        <div class="color-bar" data-label="Mastering"></div>
+        <div class="color-bar" data-label="Directing"></div>
+        <div class="color-bar" data-label="Finishing"></div>
       </div>
     </div>
   </div>
 
   <div class="core-services">
-    <div class="service-card reveal">
-      <div class="service-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
-      </div>
-      <h3>Editorial</h3>
-      <p>Our skilled editors are passionate storytellers, crafting compelling narratives through meticulous attention to pacing, rhythm, and visual flow. We collaborate closely with directors and producers to shape the film or television project into its final, impactful form. From initial assembly to fine-cut and picture lock, we ensure a smooth and creative editorial process.</p>
-    </div>
-    <div class="service-card reveal reveal-delay-1">
-      <div class="service-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3a4.5 4.5 0 000 9 4.5 4.5 0 010 9"/><path d="M12 3a4.5 4.5 0 010 9 4.5 4.5 0 000 9"/></svg>
-      </div>
-      <h3>Color Grading</h3>
-      <p>Color is a powerful tool for mood and visual impact. Our experienced colorists utilize state-of-the-art technology to enhance the aesthetic of your project, creating the desired atmosphere, ensuring consistency across scenes, and delivering a visually stunning final product that aligns with your creative vision.</p>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="service-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-      </div>
-      <h3>Post Supervision</h3>
-      <p>Navigating the complexities of post-production requires expert guidance. Our post supervisors provide comprehensive oversight, managing workflows, schedules, and budgets with meticulous detail. We act as the central point of communication, ensuring a seamless and efficient process from pre-production through to final delivery, allowing you to focus on the creative aspects of your project.</p>
-    </div>
+  <div class="service-card reveal">
+    <h3>Editorial</h3>
+    <p>Our skilled editors are passionate storytellers, crafting compelling narratives through meticulous attention to pacing, rhythm, and visual flow. We collaborate closely with directors and producers to shape the film or television project into its final, impactful form.</p>
+  </div>
+  
+  <div class="service-card reveal reveal-delay-1">
+    <h3>Color Grading</h3>
+    <p>Color is a powerful tool for mood and visual impact. Our experienced colorists utilize state-of-the-art technology to enhance the aesthetic of your project, creating the desired atmosphere, ensuring consistency across scenes, and delivering a visually stunning final product.</p>
+  </div>
+  
+  <div class="service-card reveal reveal-delay-2">
+    <h3>Post Supervision</h3>
+    <p>Navigating the complexities of post-production requires expert guidance. Our post supervisors provide comprehensive oversight, managing workflows, schedules, and budgets with meticulous detail from pre-production through to final delivery.</p>
+  </div>
+</div>
+</section>
+
+<!-- ── CTA QUOTE BANNER ── -->
+<section class="cta-banner reveal">
+  <div class="cta-content">
+    <p>
+      At Sequence Post, we are dedicated to providing seamless and high-quality 
+      post-production solutions, ensuring every project achieves its full creative 
+      potential while adhering to the highest technical standards.
+    </p>
+    <a href="#contact" class="btn-white">Work With Us</a>
   </div>
 </section>
 
-<!-- Quote Banner -->
-<div class="quote-banner">
-  <p>At Sequence Post, we are dedicated to providing seamless and high-quality post-production solutions, ensuring every project achieves its full creative potential while adhering to the highest technical standards.</p>
-</div>
+<!-- ── PARTNER SERVICES ── -->
+<section id="partners" class="section-pad reveal">
+  <div class="container">
+    <div class="work-header" style="margin-bottom: 60px;">
+      <span class="section-label">Collaboration</span>
+      <h2 class="section-title">Partner <span class="accent">Services</span></h2>
+    </div>
 
-<!-- Partner Services -->
-<section id="partners" class="section-pad" style="background:var(--void)">
-  <div class="partner-section">
-    <h3 class="section-title reveal reveal-delay-1">Our Partner <span class="accent">Services</span></h3>
-    <div class="partner-grid">
-      <div class="partner-card reveal">
-        <h4>Visual Effects</h4>
+    <div class="partner-services-grid">
+      <!-- Card 1 -->
+      <div class="service-card reveal">
+        <h3>Visual Effects</h3>
         <p>Through our talented VFX partners, we can seamlessly integrate stunning visual effects into your project. From subtle enhancements to complex CGI sequences, we facilitate the creation of impactful visuals that elevate your storytelling.</p>
       </div>
-      <div class="partner-card reveal reveal-delay-1">
-        <h4>Motion Graphics</h4>
-        <p>Partnering with skilled motion graphics artists, we can create dynamic and engaging visual elements, including titles, lower thirds, infographics, and animated sequences that enhance your project's communication and visual appeal.</p>
+
+      <!-- Card 2 -->
+      <div class="service-card reveal reveal-delay-1">
+        <h3>Motion Graphics</h3>
+        <p>Partnering with skilled motion graphics artists, we can create dynamic and engaging visual elements, including titles, infographics, and animated sequences that enhance your project's communication and visual appeal.</p>
       </div>
-      <div class="partner-card reveal reveal-delay-2">
-        <h4>Sound Design</h4>
-        <p>Our sound design partners craft immersive and engaging audio experiences. From intricate soundscapes to impactful effects, we ensure that the audio elements of your project are as compelling and polished as the visuals.</p>
+
+      <!-- Card 3 -->
+      <div class="service-card reveal reveal-delay-2">
+        <h3>Sound Design</h3>
+        <p>Our sound design partners craft immersive and engaging audio experiences. From intricate soundscapes to impactful effects, we ensure the audio elements are as compelling and polished as the visuals.</p>
       </div>
-      <div class="partner-card reveal reveal-delay-3">
-        <h4>Mastering (Audio)</h4>
-        <p>Our audio mastering partners provide the final polish and optimization to your project's sound. We ensure consistent levels, clarity, and overall sonic quality, preparing your audio for optimal playback across various platforms.</p>
+
+      <!-- Card 4 -->
+      <div class="service-card reveal reveal-delay-3">
+        <h3>Mastering (Audio)</h3>
+        <p>Our audio mastering partners provide the final polish and optimization to your project's sound. We ensure consistent levels, clarity, and overall sonic quality for optimal playback across all platforms.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Services CTA Banner -->
-<div class="cta-banner">
-  <p>Ready to discuss how Sequence Post and our partners can bring your film or television project to its full potential?</p>
-  <a href="#contact" class="btn btn-white">Enquire Now</a>
-</div>
+<!-- ── CTA QUOTE BANNER ── -->
+<section class="cta-banner reveal">
+  <div class="cta-content">
+    <p>
+      Ready to discuss how Sequence Post and our partners can bring your film or television project to its full potential?
+    </p>
+    <a href="#contact" class="btn-white">Enquire Now</a>
+  </div>
+</section>
 
 <!-- ═══ CONTACT ═══ -->
 <section id="contact" class="section-pad">
-  <span class="section-label reveal">Get In Touch</span>
-  <h2 class="section-title reveal reveal-delay-1">Let's Work<br><span class="accent">Together</span></h2>
-  <p class="contact-header-text reveal reveal-delay-2">For inquiries regarding our post-production services, please complete the form below. We will review your submission and respond to you in a timely manner.</p>
+  <div class="container">
+    <span class="section-label reveal">Get In Touch</span>
+    <h2 class="section-title reveal reveal-delay-1">Let's Work<br><span class="accent">Together</span></h2>
+    
+    <div class="contact-layout">
+      <!-- Info Column -->
+      <aside class="contact-info reveal reveal-delay-2">
+        <div class="contact-methods">
+          <div class="contact-detail">
+            <label>General Inquiries</label>
+            <a href="mailto:info@sequencepost.net" class="editorial-link">info@sequencepost.net</a>
+          </div>
+          <div class="contact-detail">
+            <label>Phone</label>
+            <a href="tel:+27114635250" class="editorial-link">011 463 5250</a>
+          </div>
+          <div class="contact-detail">
+            <label>Studio</label>
+            <address>
+              84 Bram Fischer Dr, Ferndale<br>
+              Randburg, 2194, South Africa
+            </address>
+          </div>
+        </div>
 
-  <div class="contact-layout">
-    <div class="contact-info reveal reveal-delay-2">
-      <div class="contact-detail">
-        <label>Email</label>
-        <a href="mailto:info@sequencepost.net">info@sequencepost.net</a>
-      </div>
-      <div class="contact-detail">
-        <label>Phone</label>
-        <a href="tel:+27114635250">011 463 5250</a>
-      </div>
-      <div class="contact-detail">
-        <label>Address</label>
-        <p>84 Bram Fischer Dr<br>Ferndale, Randburg, 2194<br>South Africa</p>
-      </div>
-      <div class="contact-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.7!2d28.0!3d-26.1!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDA2JzAwLjAiUyAyOMKwMDAnMDAuMCJF!5e0!3m2!1sen!2sza!4v1" allowfullscreen loading="lazy"></iframe>
-      </div>
-    </div>
+        <div class="contact-map">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3584.7!2d28.0!3d-26.1!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDA2JzAwLjAiUyAyOMKwMDAnMDAuMCJF!5e0!3m2!1sen!2sza!4v1" 
+            allowfullscreen 
+            loading="lazy">
+          </iframe>
+        </div>
+      </aside>
 
-    <div class="contact-form reveal reveal-delay-3">
-      <h3 class="form-title">Start a Project</h3>
-      <p class="form-subtitle">Tell us about your project and we'll get back to you.</p>
-      <form id="contactForm" onsubmit="return false">
-        <div class="form-row">
+      <!-- Form Column -->
+      <div class="contact-form-container reveal reveal-delay-3">
+        <div class="form-header">
+          <h3 class="form-title">Start a Project</h3>
+          <p class="form-subtitle">Tell us about your project and we'll get back to you.</p>
+        </div>
+
+        <form id="contactForm" class="editorial-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Name *</label>
+              <input type="text" name="name" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+              <label>Email *</label>
+              <input type="email" name="email" placeholder="email@example.com" required>
+            </div>
+          </div>
+
+          <!-- Custom Select Component -->
           <div class="form-group">
-            <label>Your Name *</label>
-            <input type="text" placeholder="Full name" required>
+            <label>Project Type *</label>
+            <div class="custom-select-wrapper js-custom-select">
+              <div class="select-trigger">
+                <span class="placeholder">Choose type</span>
+                <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+              <div class="select-options">
+                <!-- Injected via JS -->
+              </div>
+              <input type="hidden" name="project_type" required>
+            </div>
           </div>
+
+          <!-- Services Grid (Data Driven) -->
           <div class="form-group">
-            <label>Your Email *</label>
-            <input type="email" placeholder="email@example.com" required>
+            <label>Services Interested In</label>
+            <div class="form-checks js-services-grid">
+              <!-- Injected via JS -->
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Project Type *</label>
-          <select required>
-            <option value="" disabled selected>Choose project type</option>
-            <option>Film</option>
-            <option>TV Series</option>
-            <option>Commercial</option>
-            <option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Services Interested In *</label>
-          <div class="form-checks">
-            <label class="form-check"><input type="checkbox"><span>Editorial</span></label>
-            <label class="form-check"><input type="checkbox"><span>Grade</span></label>
-            <label class="form-check"><input type="checkbox"><span>Post Supervision</span></label>
-            <label class="form-check"><input type="checkbox"><span>VFX</span></label>
-            <label class="form-check"><input type="checkbox"><span>Sound Design</span></label>
-            <label class="form-check"><input type="checkbox"><span>Delivery</span></label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Brief Project Description</label>
-          <textarea placeholder="Tell us about your project..."></textarea>
-        </div>
-        <div class="form-row">
+
           <div class="form-group">
-            <label>Estimated Budget <span class="form-optional">(Optional)</span></label>
-            <input type="text" placeholder="e.g. R500,000 - R1,000,000">
+            <label>Brief Description</label>
+            <textarea name="message" placeholder="Tell us about the project scope..."></textarea>
           </div>
-          <div class="form-group">
-            <label>Timeline <span class="form-optional">(Optional)</span></label>
-            <input type="text" placeholder="e.g. 3 months, Q2 2026">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Budget Range</label>
+              <input type="text" name="budget" placeholder="e.g. R500k - R1M">
+            </div>
+            <div class="form-group">
+              <label>Timeline</label>
+              <input type="text" name="timeline" placeholder="e.g. Q4 2025">
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label>Any Other Comments / Questions</label>
-          <textarea placeholder="Anything else you'd like us to know..." style="min-height:80px"></textarea>
-        </div>
-        <div class="form-submit">
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
-            Send Inquiry
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </form>
+
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary btn-full">
+              <span>Send Inquiry</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -626,6 +741,11 @@ awardsTrack.innerHTML = awardsContent + awardsContent;
 // ── PROJECT DATA ──
 const featuredProjects = [
   {
+    id:'e_VXkhuoAaw', title:'Old Righteous Blues', director:'Muneera Sallies',
+    genre:'Drama', tags:['drama'],
+    tagline:'A dream worth fighting for. A past that won\'t let go.'
+  },
+  {
     id:'t2i-RDKfTa4', title:"Kings of Jo'burg Season 3", director:'Samad Davis',
     genre:'Crime Drama', tags:['drama','thriller'],
     tagline:'Power runs in the family. So does the curse.'
@@ -665,25 +785,20 @@ const featuredProjects = [
     genre:'Netflix Series', tags:['drama','thriller'],
     tagline:'Power. Betrayal. The curse continues.'
   },
-];
-
-const moreProjects = [
-  {
+    {
     id:'y5L3enHPp6A', title:"Father's Day", director:'Tumelo Lekena',
     genre:'Drama', tags:['drama'],
     tagline:'An award-winning story of family, identity, and the search for truth.'
   },
+];
+
+const moreProjects = [
   {
     id:'T-n9jqlSmlY', title:'Die Spook van Uniondale', director:'Pierre Smith',
     genre:'Romantic Comedy', tags:['comedy','drama'],
     tagline:'A legendary ghost. A love story for the ages.'
   },
-  {
-    id:'e_VXkhuoAaw', title:'Old Righteous Blues', director:'Muneera Sallies',
-    genre:'Drama', tags:['drama'],
-    tagline:'A dream worth fighting for. A past that won\'t let go.'
-  },
-  {
+    {
     id:'bSYwXonY7n8', title:'Terror Lake Drive', director:'Jerry LaMothe',
     genre:'Psychological Thriller', tags:['thriller'],
     tagline:'You can run... but some forces will always find you.'
@@ -737,7 +852,7 @@ function projectCard(p, small) {
   return `
     <div class="${cls} reveal" data-tags="${p.tags.join(',')}" data-video="${p.id}">
       <div class="project-thumb">
-        <img src="${thumb}" alt="${p.title}" loading="lazy"
+        <img src="${thumb}" alt="${p.title} — Post-Production by Sequence Post" loading="lazy"
              onerror="this.src='https://img.youtube.com/vi/${p.id}/hqdefault.jpg'">
         <div class="project-play">
           <svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="30" fill="rgba(224,75,37,.9)"/><path d="M26 20l20 12-20 12z" fill="#fff"/></svg>
@@ -918,6 +1033,63 @@ setInterval(() => {
 window.addEventListener('load', () => {
   setTimeout(() => document.querySelector('#home').classList.add('hero-loaded'), 200);
 });
+
+// ── CONTACT SECTION LOGIC ──
+const contactServices = ["Editorial", "Color Grade", "Post Supervision", "VFX & Motion", "Sound Design", "Mastering & Delivery"];
+const projectTypes = ["Feature Film", "TV Series", "Commercial", "Music Video", "Other"];
+
+const initContactUI = () => {
+  // 1. Inject Services Checkboxes
+  const servicesGrid = document.querySelector('.js-services-grid');
+  if (servicesGrid) {
+    servicesGrid.innerHTML = contactServices.map(service => `
+      <label class="form-check">
+        <input type="checkbox" name="service" value="${service.toLowerCase()}">
+        <span class="check-custom"></span>
+        <span class="check-label">${service}</span>
+      </label>
+    `).join('');
+  }
+
+  // 2. Setup Custom Project Select
+  const selectWrapper = document.querySelector('.js-custom-select');
+  if (selectWrapper) {
+    const optionsContainer = selectWrapper.querySelector('.select-options');
+    const trigger = selectWrapper.querySelector('.select-trigger');
+    const hiddenInput = selectWrapper.querySelector('input[type="hidden"]');
+    const placeholder = selectWrapper.querySelector('.placeholder');
+
+    // Inject Options
+    optionsContainer.innerHTML = projectTypes.map(type => `
+      <div class="select-option" data-value="${type}">${type}</div>
+    `).join('');
+
+    // Click Events
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      selectWrapper.classList.toggle('is-open');
+    });
+
+    selectWrapper.querySelectorAll('.select-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        const val = opt.dataset.value;
+        placeholder.textContent = val;
+        placeholder.style.color = "#fff";
+        hiddenInput.value = val;
+        
+        selectWrapper.querySelectorAll('.select-option').forEach(o => o.classList.remove('is-active'));
+        opt.classList.add('is-active');
+        selectWrapper.classList.remove('is-open');
+      });
+    });
+
+    // Close when clicking elsewhere
+    document.addEventListener('click', () => selectWrapper.classList.remove('is-open'));
+  }
+};
+
+// Ensure this runs once the page is ready
+document.addEventListener('DOMContentLoaded', initContactUI)
 </script>
 </body>
 </html>
