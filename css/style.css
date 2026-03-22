@@ -217,9 +217,25 @@ body::after {
   align-items: center;  
   gap: 15px;            
 }
-.hero-title { font-family: var(--display); font-size: clamp(50px, 10vw, 110px); line-height: 0.9; margin-bottom: 24px; letter-spacing: -0.02em; }
-.accent { color: var(--flame) !important; }
-.hero-desc { color: var(--fog); max-width: 600px; line-height: 1.8; font-size: 17px; }
+.hero-title { 
+  font-family: var(--display); 
+  font-size: clamp(50px, 10vw, 110px); 
+  line-height: 0.9; 
+  margin-bottom: 24px; 
+  letter-spacing: -0.02em;
+  text-wrap: balance; /* Prevents single words on a line */
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Depth for readability over images */
+}
+
+.hero-desc { 
+  color: var(--fog); 
+  max-width: 550px; 
+  line-height: 1.8; 
+  font-size: 17px; 
+  text-wrap: pretty; /* Modern way to prevent 'orphans' at the end of paragraphs */
+  border-left: 2px solid var(--flame); /* Vertical orange accent line */
+  padding-left: 24px;
+}
 
 .hero-ctas { 
   display: flex; 
@@ -227,6 +243,24 @@ body::after {
   margin-top: 48px; 
   flex-wrap: wrap; 
 }
+/* --- STAGED HERO FADE-IN --- */
+
+/* 1. Set starting state (invisible and slightly lower) */
+#home .hero-eyebrow, 
+#home .hero-title, 
+#home .hero-desc, 
+#home .hero-ctas {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+/* 2. Set final state (triggered by JS class 'hero-loaded') */
+#home.hero-loaded .hero-eyebrow { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+#home.hero-loaded .hero-title { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+#home.hero-loaded .hero-desc { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+#home.hero-loaded .hero-ctas { opacity: 1; transform: translateY(0); transition-delay: 0.8s; }
+
 /* --- HERO SCROLL INDICATOR --- */
 .scroll-indicator {
   position: absolute;
@@ -400,20 +434,62 @@ body::after {
   width: max-content; 
 }
 
-.award-item {
-  background: var(--glass); border: 1px solid var(--ui-border); backdrop-filter: blur(5px);
-  padding: 30px; min-width: 250px; text-align: center;
-}
-
-.award-festival { font-family: var(--display); font-size: 20px; letter-spacing: 0.05em; color: var(--light); }
-.award-category { color: var(--flame); font-size: 15px; font-weight: 700; margin-bottom: 5px; text-transform: uppercase; }
-@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-33.333%); } }
-
+/* --- CINEMATIC AWARD ITEMS --- */
 .awards-section { 
   background: var(--charcoal); 
-  padding: 80px 0; 
+  padding: 80px 0; /* OLD */
   border-top: 1px solid var(--ui-border); 
   overflow: hidden; 
+}
+.award-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  min-width: 280px;
+  text-align: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.award-item:hover {
+  background: rgba(255, 77, 0, 0.03);
+  border-color: var(--flame);
+  transform: translateY(-5px);
+}
+
+.award-star {
+  color: var(--flame);
+  font-size: 24px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 8px var(--flame-glow));
+}
+
+.award-category {
+  color: var(--light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  opacity: 0.6;
+}
+
+.award-festival {
+  font-family: var(--display);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.award-film {
+  font-size: 13px;
+  color: var(--flame);
+  font-style: italic;
+  font-weight: 500;
 }
 
 /* ─── 9. WORK / PROJECTS GRID ─── */
