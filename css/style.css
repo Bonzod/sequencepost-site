@@ -365,8 +365,8 @@ body::after {
 
 .ticker { 
   display: flex; 
-  gap: 80px; 
-  animation: scroll 20s linear infinite; 
+  gap: 100px; 
+  animation: scroll 80s linear infinite; 
   white-space: nowrap;
   align-items: center;
   /* ADD THIS LINE: Ensures the ticker doesn't wrap or stop early */
@@ -430,7 +430,7 @@ body::after {
 .awards-track { 
   display: flex; 
   gap: 20px; 
-  animation: scroll 75s linear infinite; 
+  animation: scroll 250s linear infinite; 
   width: max-content; 
 }
 
