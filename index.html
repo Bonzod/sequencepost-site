@@ -143,6 +143,31 @@
   </div>
 </section>
 
+<!-- ═══ SIZZLE REEL SECTION ═══ -->
+<section id="sizzle" class="sizzle-container reveal">
+  <div class="sizzle-video-wrapper">
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline 
+      poster="assets/video/sizzle_default.webp" 
+      class="sizzle-video">
+      <source src="assets/video/sizzle_01.mp4" type="video/mp4">
+      <!-- You can add a .webm version here for better browser support/speed -->
+    </video>
+    
+    <!-- Cinematic Overlays -->
+    <div class="sizzle-overlay"></div>
+    <div class="sizzle-grain"></div>
+    
+    <!-- Text Overlay (Optional) -->
+    <div class="sizzle-content">
+      <h3 class="sizzle-label">Showcasing Technical Excellence</h3>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ AWARDS & SELECTIONS ═══ -->
 <section class="awards-section">
   <div class="awards-header">
@@ -212,23 +237,39 @@
       </div>
     </div>
   </div>
+  <!-- ═══ ADVANCED CINEMATIC SERVICES ═══ -->
+  <div class="advanced-services-reveal">
+    <!-- Left Side: Navigation (1/3) -->
+    <div class="services-nav">
+      <div class="service-reveal-item" data-img="assets/services/img_editorial.webp">
+        <span class="reveal-num">01</span>
+        <h3 class="reveal-title">Editorial</h3>
+        <p class="reveal-desc">Our skilled editors are passionate storytellers, crafting compelling narratives through meticulous attention to pacing, rhythm, and visual flow.</p>
+        <div class="reveal-progress"></div>
+      </div>
 
-  <div class="core-services">
-  <div class="service-card reveal">
-    <h3>Editorial</h3>
-    <p>Our skilled editors are passionate storytellers, crafting compelling narratives through meticulous attention to pacing, rhythm, and visual flow. We collaborate closely with directors and producers to shape the film or television project into its final, impactful form.</p>
+      <div class="service-reveal-item" data-img="assets/services/img_grade.webp">
+        <span class="reveal-num">02</span>
+        <h3 class="reveal-title">Color Grading</h3>
+        <p class="reveal-desc">Utilizing state-of-the-art technology to enhance the aesthetic of your project, creating atmosphere and ensuring consistency across every frame.</p>
+        <div class="reveal-progress"></div>
+      </div>
+
+      <div class="service-reveal-item" data-img="assets/services/img_supervision.webp">
+        <span class="reveal-num">03</span>
+        <h3 class="reveal-title">Post Supervision</h3>
+        <p class="reveal-desc">Comprehensive oversight, managing workflows, schedules, and budgets with meticulous detail from pre-production through to final delivery.</p>
+        <div class="reveal-progress"></div>
+      </div>
+    </div>
+
+    <!-- Right Side: The Stage (2/3) -->
+    <div class="services-stage">
+      <img id="revealImage" src="assets/services/img_default.webp" alt="Sequence Post Service Preview">
+      <div class="stage-overlay"></div>
+      <div class="stage-vignette"></div>
+    </div>
   </div>
-  
-  <div class="service-card reveal reveal-delay-1">
-    <h3>Color Grading</h3>
-    <p>Color is a powerful tool for mood and visual impact. Our experienced colorists utilize state-of-the-art technology to enhance the aesthetic of your project, creating the desired atmosphere, ensuring consistency across scenes, and delivering a visually stunning final product.</p>
-  </div>
-  
-  <div class="service-card reveal reveal-delay-2">
-    <h3>Post Supervision</h3>
-    <p>Navigating the complexities of post-production requires expert guidance. Our post supervisors provide comprehensive oversight, managing workflows, schedules, and budgets with meticulous detail from pre-production through to final delivery.</p>
-  </div>
-</div>
 </section>
 
 <!-- ── CTA QUOTE BANNER ── -->
@@ -899,6 +940,47 @@ const initContactUI = () => {
     document.addEventListener('click', () => selectWrapper.classList.remove('is-open'));
   }
 };
+
+// --- ADVANCED SERVICES REVEAL LOGIC ---
+const revealNav = document.querySelector('.services-nav'); 
+const revealItems = document.querySelectorAll('.service-reveal-item');
+const revealImage = document.getElementById('revealImage');
+
+// 1. Define the Master Default Image
+const stageDefault = "assets/services/img_default.webp";
+
+// 2. Hover Logic: Set specific service as active
+revealItems.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    const newSrc = item.getAttribute('data-img');
+    
+    // Update Image
+    revealImage.style.opacity = '0.7';
+    setTimeout(() => {
+      revealImage.src = newSrc;
+      revealImage.style.opacity = '1';
+    }, 150);
+
+    // Update Text Classes
+    revealItems.forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+  });
+});
+
+// 3. Reset Logic: Return to Master Stage
+// We attach this to the whole block so it resets when the mouse leaves the area
+document.querySelector('.advanced-services-reveal').addEventListener('mouseleave', () => {
+  
+  // Return Image to Default
+  revealImage.style.opacity = '0.7';
+  setTimeout(() => {
+    revealImage.src = stageDefault;
+    revealImage.style.opacity = '1';
+  }, 150);
+
+  // Remove active class from all (closes descriptions)
+  revealItems.forEach(i => i.classList.remove('active'));
+});
 
 // Ensure this runs once the page is ready
 document.addEventListener('DOMContentLoaded', initContactUI)
